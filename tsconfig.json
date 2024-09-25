@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "jsx": "preserve",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "noEmit": true,
+    "incremental": true,
+    
+    "baseUrl": ".", 
+    "paths": {
+      "lib/*": ["lib/*"],   
+      "modules/*": ["modules/*"],  
+      "components/*": ["components/*"]
+    }
+  },
+  "include": [
+    "pages",
+    "components",
+    "lib",
+    "styles",
+    "modules"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
