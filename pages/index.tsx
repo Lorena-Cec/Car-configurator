@@ -1,17 +1,30 @@
-import Link from 'next/link';
+// pages/index.tsx
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import { RootState } from "../modules/authentication/state/store"; // import RootState
 
-const Home: React.FC = () => {
+const Home = () => {
+  const user = useSelector((state: RootState) => state.auth.user);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!user) {
+      router.push("register");  // Redirect to register if not logged in
+    }
+  }, [user, router]);
+
+  if (!user) return null;
+
   return (
-    <div>
-      <h1>Welcome to the App</h1>
-      <Link href="/modules/authentication/pages/login">Login</Link>
-      <Link href="/modules/authentication/pages/register">Register</Link>
+    <div className="flex flex-col items-center">
+      <h1 className="text-xl">Welcome, {user.displayName || "User"}!</h1>
+      <p className="text-gray-500">You can start configuring your cars.</p>
     </div>
   );
 };
 
 export default Home;
-
 
 
 /*import { useState } from 'react';
