@@ -1,13 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: [
-      './pages/**/*.{js,ts,jsx,tsx}',
-      './components/**/*.{js,ts,jsx,tsx}',
-    ],
-    theme: {
-      extend: {},
-      fontFamily: {
-        inter: ['Inter', 'sans-serif'],
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
+    './modules/**/*.{js,ts,jsx,tsx}', // Ako koristiš modules folder
+  ],
+  theme: {
+    extend: {
+      spacing: {
+        '130': '34rem',
       },
       colors: {
         transparent: 'transparent',
@@ -26,6 +27,9 @@ module.exports = {
         'light-grey': '#73738C',
       },
     },
-    plugins: [],
-  }
-  
+    fontFamily: {
+      inter: ['Inter', 'sans-serif'],
+    },
+  },
+  plugins: [],
+}

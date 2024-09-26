@@ -4,5 +4,5 @@
   "/_document": "pages/_document.js",
   "/login": "pages/login.js",
   "/home": "pages/home.js",
-  "/register": "pages/register.js"
+  "/carselect": "pages/carselect.js"
 }

@@ -3,7 +3,11 @@ import { signInWithPopup } from 'firebase/auth';
 import { googleProvider, auth } from '../../../lib/firebaseConfig';
 import { useRouter } from 'next/router';
 
-const GoogleAuthButton = () => {
+interface GoogleAuthButtonProps {
+  isLogin: boolean; // Dodaj isLogin prop
+}
+
+const GoogleAuthButton: React.FC<GoogleAuthButtonProps> = ({ isLogin }) => {
   const router = useRouter();
 
   const handleGoogleLogin = async () => {
@@ -18,9 +22,9 @@ const GoogleAuthButton = () => {
   return (
     <button
       onClick={handleGoogleLogin}
-      className="w-full bg-red-500 text-white py-2 rounded-md hover:bg-red-600 mt-4"
+      className="w-full bg-blue-400 text-white py-2 rounded-md hover:bg-red-600 mt-4"
     >
-      Sign in with Google
+      {isLogin ? 'Sign in with Google' : 'Sign up with Google'} {/* Dinamički tekst */}
     </button>
   );
 };

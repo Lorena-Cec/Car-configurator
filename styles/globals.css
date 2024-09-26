@@ -2,6 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
+:root {
+    --error-red: #EB5757;
+    --success-green: #6CEAB5;
+}
+
+body {
     @apply font-inter;
+}
+
+.Toastify__toast--error {
+    border-radius: 10px;
+    background: var(--error-red) !important;
+    width: 100%; 
+    max-width: 600px; 
+}
+
+.Toastify__toast--success {
+    border-radius: 10px !important;
+    background: var(--success-green) !important;
+}
+
+.Toastify__toast-body {
+    color: #000;
+    font-size: 16px;
+    line-height: 20px;
+    padding: 25px 20px 20px 20px;
+    width: 100%;
+    font-weight: 400;
 }
