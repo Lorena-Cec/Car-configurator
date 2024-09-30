@@ -20,9 +20,8 @@ const CarSelect = () => {
           <Link href={"/carselect"}>
             <img src="/arrowleft.png" alt="Arrow Left" className="h-4  w-auto" />
           </Link>
-            
-            <p className="text-light-grey text-2xl font-optician">{year}</p>
-            <p className=" text-dark-grey text-2xl font-semibold font-optician">{name}</p>
+          <p className="text-light-grey text-2xl font-optician">{year}</p>
+          <p className=" text-dark-grey text-2xl font-semibold font-optician">{name}</p>
         </div>
         <div className="flex items-center gap-10">
           <div className="flex gap-1">
@@ -39,11 +38,10 @@ const CarSelect = () => {
           </div>
         </div>
       </div>
-      
-      <div className="flex h-screen">
-        {/* left */}
-        <div className="flex flex-col items-center">
-          <img src={`/${name}/View=${view}, Color=${color}, Wheel Style=${wheel}.png`} alt="Car Configuration" className="h-96"/>
+    
+      <div className="flex">
+        <div className="flex flex-col flex-1 justify-center items-center bg-grey">
+          <img src={`/${name}/View=${view}, Color=${color}, Wheel Style=${wheel}.png`} alt="Car Configuration" className="h-96 w-auto object-contain"/>
           <div className="flex items-center gap-4">
             <img src="/arrowleft.png" alt="Arrow Left" className="h-4  w-auto" />
             <div className="flex items-center gap-1">
@@ -54,9 +52,9 @@ const CarSelect = () => {
             <img src="/arrowright.png" alt="Arrow Right" className="h-4  w-auto" />
           </div>
         </div>
-        {/* right */}
-        <div className="w-96 bg-white border-l-2 border-border-grey absolute right-0 bottom-0 top-40">
-          {/* colors and wheels options */}
+
+        <div className="w-96 bg-white border-l-2 border-border-grey ">
+
           <div className="flex flex-col p-10 gap-10">
              <div className="flex">
               <img src={`/Color/Color=${colorChoice}.png`} alt="Color choice" className="h-14 w-auto rounded-full mr-5" />
@@ -74,7 +72,7 @@ const CarSelect = () => {
             </div>
           </div>
 
-          {/* total and interior button */}
+
           <div className="absolute bottom-0 right-0">
             <div className="flex items-center justify-between px-10 mb-6">
               <div className="flex items-center">
@@ -92,7 +90,7 @@ const CarSelect = () => {
             </div>
          </div>
         </div>
-      </div>
+      </div>      
     </div>
   );
 };
