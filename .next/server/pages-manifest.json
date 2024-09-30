@@ -3,6 +3,5 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/carselect": "pages/carselect.js",
-  "/configurationExterior": "pages/configurationExterior.js",
-  "/home": "pages/home.js"
+  "/configurationExterior": "pages/configurationExterior.js"
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import NavBar from "../components/NavBar"; 
 import { useRouter } from 'next/router';
+import Link from "next/link";
 
 const CarSelect = () => {
   const router = useRouter();
@@ -16,7 +17,10 @@ const CarSelect = () => {
       <NavBar />
       <div className="flex justify-between items-center py-6 px-10 bg-white border-b-2 border-border-grey">
         <div className="flex items-center gap-3">
+          <Link href={"/carselect"}>
             <img src="/arrowleft.png" alt="Arrow Left" className="h-4  w-auto" />
+          </Link>
+            
             <p className="text-light-grey text-2xl font-optician">{year}</p>
             <p className=" text-dark-grey text-2xl font-semibold font-optician">{name}</p>
         </div>
@@ -36,9 +40,9 @@ const CarSelect = () => {
         </div>
       </div>
       
-      <div className="flex items-center">
+      <div className="flex h-screen">
         {/* left */}
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center">
           <img src={`/${name}/View=${view}, Color=${color}, Wheel Style=${wheel}.png`} alt="Car Configuration" className="h-96"/>
           <div className="flex items-center gap-4">
             <img src="/arrowleft.png" alt="Arrow Left" className="h-4  w-auto" />
