@@ -11,6 +11,17 @@ body {
     @apply font-inter;
 }
 
+@font-face {
+    font-family: "OpticianSans";
+    src: local("OpticianSans"),
+     url("../public/fonts/OpticianSans/Optiker-K.ttf") format("truetype");
+    font-weight: bold;
+   }   
+
+.font-optician{
+    font-family: "OpticianSans";
+}
+
 .Toastify__toast--error {
     border-radius: 10px;
     background: var(--error-red) !important;

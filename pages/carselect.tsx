@@ -1,28 +1,37 @@
 import React from "react";
 import NavBar from "../components/NavBar"; 
+import {db} from "../lib/firebaseConfig";
+import { useEffect, useState } from 'react';
+import { collection, getDocs } from "firebase/firestore";
 
-const cars = [
-  {
-    id: 1,
-    name: "AUDI RS6 AVANT",
-    year: "2022",
-    image: "audirs6avant.png", 
-  },
-  {
-    id: 2,
-    name: "AUDI RS5",
-    year: "2022",
-    image: "audirs5.png",
-  },
-  {
-    id: 3,
-    name: "AUDI E-TRON GT",
-    year: "2022",
-    image: "audietronGT.png",
-  },
-];
+
+interface Car {
+  id: string;
+  name: string;
+  year: string;
+  image: string;
+}
+
 
 const CarSelect = () => {
+  const [cars, setCars] = useState<Car[]>([]); 
+
+  useEffect(() => {
+    const fetchCars = async () => {
+      const carModelsCollection = collection(db, "models");
+      const carSnapshot = await getDocs(carModelsCollection);
+
+      const carList: Car[] = carSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(), 
+      })) as Car[]; 
+
+      setCars(carList); 
+    };
+
+    fetchCars();
+  }, []);
+
   return (
     <div className="min-h-screen bg-grey">
       <NavBar />
@@ -30,16 +39,16 @@ const CarSelect = () => {
         <h1 className="text-2xl font-normal pl-36 mt-12">Configure a car</h1>
         <p className="text-sm mt-2 pl-36 text-light-grey">Pick your favorite model and start configuring.</p>
         
-        <div className="flex overflow-x-auto mt-6 pl-36">
+        <div className="flex mt-6 pl-36">
           {cars.map((car) => (
             <div key={car.id} className="bg-white rounded-lg shadow-md m-2 w-1/3 h-130 flex-none">
-                <div className="overflow-hidden">
-                    <img src={car.image} alt={car.name} className="h-96 relative right-44 object-cover" />
-                </div>
-              <p className="text-gray-500 pl-10">{car.year}</p>
-              <h2 className="text-lg font-semibold mt-2 pl-10">{car.name}</h2>
-              <button className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">
-                Configure now
+              <div className="overflow-hidden">
+                <img src={car.image} alt={car.name} className="h-96 relative right-48  object-cover" />
+              </div>
+              <p className="text-light-grey text-2xl pl-10 font-optician">{car.year}</p>
+              <h2 className="text-5xl text-dark-grey font-semibold pl-10 font-optician">{car.name}</h2>
+              <button className="mt-4 ml-10 bg-blue-500 font-bold text-white py-3 px-9 hover:bg-blue-600">
+                Configure Now
               </button>
             </div>
           ))}
@@ -48,5 +57,6 @@ const CarSelect = () => {
     </div>
   );
 };
+  
 
 export default CarSelect;
