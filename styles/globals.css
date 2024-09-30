@@ -20,6 +20,7 @@ body {
 
 .font-optician{
     font-family: "OpticianSans";
+    letter-spacing: -2px;
 }
 
 .Toastify__toast--error {
