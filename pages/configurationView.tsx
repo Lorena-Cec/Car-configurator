@@ -24,7 +24,9 @@ const CarSelect = () => {
           <p className=" text-dark-grey text-2xl font-semibold font-optician">{name}</p>
         </div>
         <div className="flex items-center gap-10">
-            <p className="text-blue-400 text-base">Edit Configuration</p>
+            <Link href={`/configurationExterior?id=${id}&name=${name}&year=${year}`}>
+                <p className="text-blue-400 text-base">Edit Configuration</p>
+            </Link>
             <p className="text-red-error text-base">Delete</p>
         </div>
       </div>
@@ -48,9 +50,11 @@ const CarSelect = () => {
                 <p className="text-light-grey text-3xl font-optician">{year}</p>
             </div>
             <div className="flex flex-col items-end">
-                <div className="flex items-center">
+                <div className="flex items-center justify-center">
                     <p className="text-light-grey text-base font-semibold">TOTAL</p>
-                    <img src="/info.png" alt="Info" className="h-4 w-auto ml-2" />
+                    <svg width="16" fill="none" className="h-4 w-auto ml-2 text-light-grey"  height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 0C3.6 0 0 3.6 0 8C0 12.4 3.6 16 8 16C12.4 16 16 12.4 16 8C16 3.6 12.4 0 8 0ZM9 12H7V7H9V12ZM8 6C7.4 6 7 5.6 7 5C7 4.4 7.4 4 8 4C8.6 4 9 4.4 9 5C9 5.6 8.6 6 8 6Z" fill="currentColor"/>
+                    </svg>
                 </div>
                 <p className="text-dark-grey text-2xl">120,000.12 €</p>
             </div>
