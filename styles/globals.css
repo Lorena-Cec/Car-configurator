@@ -10,13 +10,22 @@
 body {
     @apply font-inter;
 }
-
+/*
 @font-face {
     font-family: "OpticianSans";
-    src: local("OpticianSans"),
-     url("../public/fonts/OpticianSans/Optiker-K.ttf") format("truetype");
+    src: url("/public/fonts/OpticianSans/Optiker-K.ttf") format("truetype");
     font-weight: bold;
-   }   
+   }   */
+
+@layer base {
+    @font-face {
+      font-family: 'OpticianSans';
+      font-style: normal;
+      font-weight: bold;
+      font-display: swap;
+      src: url("/fonts/OpticianSans/Optiker-K.ttf") format("truetype");
+    }
+  }
 
 .font-optician{
     font-family: "OpticianSans";

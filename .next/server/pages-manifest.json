@@ -2,6 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
+  "/carselect": "pages/carselect.js",
   "/configurationExterior": "pages/configurationExterior.js",
-  "/carselect": "pages/carselect.js"
+  "/configurationView": "pages/configurationView.js"
 }

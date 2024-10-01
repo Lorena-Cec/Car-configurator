@@ -65,7 +65,7 @@ const CarSelect = () => {
                   </div>
                   <p className="text-light-grey text-3xl pl-10 font-optician">{car.year}</p>
                   <h2 className="text-5xl text-dark-grey font-semibold pl-10 font-optician">{car.name}</h2>
-                  <Link href={`/configurationExterior?id=${car.id}&name=${car.name}&year=${car.year}`}>
+                  <Link href={`/configurationView?id=${car.id}&name=${car.name}&year=${car.year}`}>
                     <button className="mt-4 ml-10 bg-blue-500 font-bold text-white py-3 px-9 hover:bg-blue-600">
                       Configure Now
                     </button>
