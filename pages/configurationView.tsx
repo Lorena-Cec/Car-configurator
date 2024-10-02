@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import NavBar from "../components/NavBar"; 
 import { useRouter } from 'next/router';
 import Link from "next/link";
@@ -8,10 +8,22 @@ import { RootState } from '../store';
 const CarSelect = () => {
   const router = useRouter();
   const carInfo = useSelector((state: RootState) => state.carConfig);
-  let view = "Front Left";
+  const views = ["Front Left","Back Left","Side","Front","Back"];
+  const [currentViewIndex, setCurrentViewIndex] = useState(0);
   let colorChoice = "Turbo Blue";
   let wheelsChoice = "22” Magnesium 5-spoke";
 
+  const handlePrevClick = () => {
+    setCurrentViewIndex((prevIndex) =>
+        prevIndex === 0 ? views.length - 1 : prevIndex -1
+    );
+  };
+
+  const handleNextClick = () => {
+    setCurrentViewIndex((prevIndex) =>
+        prevIndex === views.length - 1 ? 0 : prevIndex + 1
+    );
+  };
 
   return (
     <div className="min-h-screen bg-grey flex flex-col">
@@ -34,15 +46,15 @@ const CarSelect = () => {
     
       
         <div className="flex flex-col items-center bg-grey pb-24">
-          <img src={`/${carInfo.name}/View=${view}, Color=${carInfo.color}, Wheel Style=${carInfo.wheels}.png`} alt="Car Configuration" className="h-96 w-auto p-4"/>
+          <img src={`/${carInfo.name}/View=${views[currentViewIndex]}, Color=${carInfo.color}, Wheel Style=${carInfo.wheels}.png`} alt="Car Configuration" className="h-96 w-auto p-4"/>
           <div className="flex items-center gap-4">
-            <img src="/arrowleft.png" alt="Arrow Left" className="h-4  w-auto" />
+            <img src="/arrowleft.png" alt="Arrow Left" className="h-4 w-auto cursor-pointer" onClick={handlePrevClick} />
             <div className="flex items-center gap-1">
-              <p className="text-dark-grey text-lg">1</p>
+              <p className="text-dark-grey text-lg">{currentViewIndex + 1}</p>
               <p className="text-light-grey text-lg">/</p>
-              <p className="text-light-grey text-lg">5</p>
+              <p className="text-light-grey text-lg">{views.length}</p>
             </div>
-            <img src="/arrowright.png" alt="Arrow Right" className="h-4  w-auto" />
+            <img src="/arrowright.png" alt="Arrow Right" className="h-4 w-auto cursor-pointer" onClick={handleNextClick} />
           </div>
         </div>
         <div className="flex justify-between items-center mx-40 pb-9 border-b-2 border-border-grey">
