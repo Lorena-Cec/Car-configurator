@@ -24,6 +24,11 @@ self.__BUILD_MANIFEST = {
       "static/chunks/main.js",
       "static/chunks/pages/carselect.js"
     ],
+    "/configurationExterior": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/configurationExterior.js"
+    ],
     "/configurationView": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",

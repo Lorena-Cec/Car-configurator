@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import { RootState } from '../store'; 
 
 const CarSelect = () => {
-  const router = useRouter();
   const carInfo = useSelector((state: RootState) => state.carConfig);
   const views = ["Front Left","Back Left","Side","Front","Back"];
   const [currentViewIndex, setCurrentViewIndex] = useState(0);
