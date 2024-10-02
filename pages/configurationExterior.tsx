@@ -35,9 +35,9 @@ const CarSelect = () => {
   };
   
   const carColorsShort: { [key: string]: string[] } = {
-    RS5: ["Blue", "Gray", "Red"],
+    RS5: ["Blue", "Nardo Gray", "Red"],
     RS6: ["Blue", "Black", "White"],
-    "e-tron": ["Green", "Silver"]
+    "e-tron": ["Green", "White"]
   };
   
   const carWheelsOptions: { [key: string]: string[] } = {
