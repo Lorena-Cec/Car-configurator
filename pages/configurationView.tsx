@@ -2,15 +2,16 @@ import React from "react";
 import NavBar from "../components/NavBar"; 
 import { useRouter } from 'next/router';
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import { RootState } from '../store'; 
 
 const CarSelect = () => {
   const router = useRouter();
-  const { id, name, year } = router.query;
+  const carInfo = useSelector((state: RootState) => state.carConfig);
   let view = "Front Left";
-  let color = "Blue";
   let colorChoice = "Turbo Blue";
   let wheelsChoice = "22” Magnesium 5-spoke";
-  let wheel = "One";
+
 
   return (
     <div className="min-h-screen bg-grey flex flex-col">
@@ -20,11 +21,11 @@ const CarSelect = () => {
           <Link href={"/carselect"}>
             <img src="/arrowleft.png" alt="Arrow Left" className="h-4  w-auto" />
           </Link>
-          <p className="text-light-grey text-2xl font-optician">{year}</p>
-          <p className=" text-dark-grey text-2xl font-semibold font-optician">{name}</p>
+          <p className="text-light-grey text-2xl font-optician">{carInfo.year}</p>
+          <p className=" text-dark-grey text-2xl font-semibold font-optician">{carInfo.name}</p>
         </div>
         <div className="flex items-center gap-10">
-            <Link href={`/configurationExterior?id=${id}&name=${name}&year=${year}`}>
+            <Link href="/configurationExterior">
                 <p className="text-blue-400 text-base">Edit Configuration</p>
             </Link>
             <p className="text-red-error text-base">Delete</p>
@@ -33,7 +34,7 @@ const CarSelect = () => {
     
       
         <div className="flex flex-col items-center bg-grey pb-24">
-          <img src={`/${name}/View=${view}, Color=${color}, Wheel Style=${wheel}.png`} alt="Car Configuration" className="h-96 w-auto p-4"/>
+          <img src={`/${carInfo.name}/View=${view}, Color=${carInfo.color}, Wheel Style=${carInfo.wheels}.png`} alt="Car Configuration" className="h-96 w-auto p-4"/>
           <div className="flex items-center gap-4">
             <img src="/arrowleft.png" alt="Arrow Left" className="h-4  w-auto" />
             <div className="flex items-center gap-1">
@@ -46,8 +47,8 @@ const CarSelect = () => {
         </div>
         <div className="flex justify-between items-center mx-40 pb-9 border-b-2 border-border-grey">
             <div>
-                <p className=" text-dark-grey text-5xl font-semibold font-optician">{name}</p>
-                <p className="text-light-grey text-3xl font-optician">{year}</p>
+                <p className=" text-dark-grey text-5xl font-semibold font-optician">{carInfo.name}</p>
+                <p className="text-light-grey text-3xl font-optician">{carInfo.year}</p>
             </div>
             <div className="flex flex-col items-end">
                 <div className="flex items-center justify-center">
@@ -78,7 +79,7 @@ const CarSelect = () => {
                     </div>
                     <div className="flex justify-between items-center">
                         <div className="flex">
-                            <img src={`/Wheels/Car=${name}, Style=${wheel}.png`} alt="Wheel choice" className="h-14 w-auto mr-5" />
+                            <img src={`/Wheels/Car=${carInfo.carType}, Style=${carInfo.wheels}.png`} alt="Wheel choice" className="h-14 w-auto mr-5" />
                             <p className="text-base flex flex-col justify-center">{wheelsChoice}</p>
                         </div>
                         <p className="text-light-grey">0 €</p>
@@ -89,8 +90,8 @@ const CarSelect = () => {
                     <hr className="bg-dark-grey h-px"></hr>
                     <div className="flex justify-between items-center">
                         <div className="flex">
-                            <img src={`/Wheels/Car=${name}, Style=${wheel}.png`} alt="Wheel choice" className="h-14 w-auto mr-5" />
-                            <p className="text-base flex flex-col justify-center">{wheelsChoice}</p>
+                            <img src={`/Interior Color/Color=${carInfo.interior}.png`} alt="Interior choice" className="h-14 w-auto mr-5 rounded-full" />
+                            <p className="text-base flex flex-col justify-center">{carInfo.interior}</p>
                         </div>
                         <p className="text-light-grey">0 €</p>
                     </div>

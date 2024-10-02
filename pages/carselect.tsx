@@ -6,13 +6,18 @@ import { collection, getDocs } from "firebase/firestore";
 import { Swiper, SwiperSlide } from "swiper/react"; 
 import "swiper/swiper-bundle.css"; 
 import Link from "next/link";
-
+import { useDispatch } from "react-redux";
+import { setCarInfo } from "../modules/configurator/state/carConfigSlice"; 
 
 interface Car {
   id: string;
   name: string;
   year: string;
   image: string;
+  defaultColor: string;    
+  defaultWheels: string;   
+  defaultInterior: string;
+  carType: string; 
 }
 
 
@@ -33,6 +38,20 @@ const CarSelect = () => {
 
     fetchCars();
   }, []);
+
+  const dispatch = useDispatch();
+
+  const handleCarSelect = (car: Car) => {
+    dispatch(setCarInfo({
+      id: car.id,
+      name: car.name,
+      year: parseInt(car.year), 
+      color: car.defaultColor,
+      wheels: car.defaultWheels,
+      interior: car.defaultInterior,
+      carType: car.carType,
+    }));
+  };
 
   return (
     <div className="min-h-screen bg-grey">
@@ -65,8 +84,10 @@ const CarSelect = () => {
                   </div>
                   <p className="text-light-grey text-3xl pl-10 font-optician">{car.year}</p>
                   <h2 className="text-5xl text-dark-grey font-semibold pl-10 font-optician">{car.name}</h2>
-                  <Link href={`/configurationView?id=${car.id}&name=${car.name}&year=${car.year}`}>
-                    <button className="mt-4 ml-10 bg-blue-500 font-bold text-white py-3 px-9 hover:bg-blue-600">
+                  <Link href="/configurationView">
+                    <button className="mt-4 ml-10 bg-blue-500 font-bold text-white py-3 px-9 hover:bg-blue-600"
+                    onClick={() => handleCarSelect(car)}
+                    >
                       Configure Now
                     </button>
                   </Link>
