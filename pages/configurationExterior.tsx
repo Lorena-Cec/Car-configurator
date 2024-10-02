@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "store";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setWheels, setColor } from "modules/configurator/state/carConfigSlice";
+import { setWheels, setColor, setColorFull } from "modules/configurator/state/carConfigSlice";
 
 const CarSelect = () => {
   const dispatch = useDispatch();
@@ -58,7 +58,7 @@ const CarSelect = () => {
   const wheelsOptionsName = carWheelsName[carInfo.carType];
 
   const [selectedColorIndex, setSelectedColorIndex] = useState(0);
-  const [selectedWheelIndex] = useState(0);
+  const [selectedWheelIndex, setSelectedWheelIndex] = useState(0);
 
   const selectedFullColor = fullColorOptions[selectedColorIndex];
   const selectedShortColor = shortColorOptions[selectedColorIndex];
@@ -69,15 +69,16 @@ const CarSelect = () => {
   const handleColorSelect = (index: number) => {
     setSelectedColorIndex(index);
     dispatch(setColor(shortColorOptions[index])); 
+    dispatch(setColorFull(fullColorOptions[index])); 
   };
 
   const handleDone = () => {
     setSelectedOption("main"); 
   };
 
-  const handleWheelsSelect = (wheels: string) => {
-    dispatch(setWheels(wheels)); 
-    setSelectedOption("main"); 
+  const handleWheelsSelect = (index: number) => {
+    setSelectedWheelIndex(index);
+    dispatch(setWheels(wheelsOptions[index])); 
   };
 
 
@@ -194,7 +195,7 @@ const CarSelect = () => {
                     <div className="flex items-center justify-between px-7 mb-6 gap-14">
                       <div className="flex items-center">
                         <p className="text-sm tracking-widest text-light-grey">TOTAL</p>
-                        <svg width="16" fill="none" className="h-4 w-auto ml-2 text-light-grey"  height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="16" fill="none" className="h-4 w-auto ml-2 text-light-grey cursor-pointer"  height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
                           <path d="M8 0C3.6 0 0 3.6 0 8C0 12.4 3.6 16 8 16C12.4 16 16 12.4 16 8C16 3.6 12.4 0 8 0ZM9 12H7V7H9V12ZM8 6C7.4 6 7 5.6 7 5C7 4.4 7.4 4 8 4C8.6 4 9 4.4 9 5C9 5.6 8.6 6 8 6Z" fill="currentColor"/>
                         </svg>
                       </div>
@@ -211,14 +212,19 @@ const CarSelect = () => {
             )}
 
             {selectedOption === "wheels" && (
-              <div>
-                <h3 className="text-lg font-bold mb-4">Choose Wheels</h3>
-                <div className="flex flex-wrap gap-4">
+              <div className="w-80 border-border-grey border-l-2 absolute top-20 right-0 bottom-0 bg-white z-10">
+                <div className="flex items-center justify-between pl-10 pb-16 pt-6 pr-10">
+                  <p className="text-2xl text-dark-grey  ">Wheels</p>      
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-dark-grey cursor-pointer" onClick={handleDone} xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13.7 0.3C13.3 -0.1 12.7 -0.1 12.3 0.3L7 5.6L1.7 0.3C1.3 -0.1 0.7 -0.1 0.3 0.3C-0.1 0.7 -0.1 1.3 0.3 1.7L5.6 7L0.3 12.3C-0.1 12.7 -0.1 13.3 0.3 13.7C0.5 13.9 0.7 14 1 14C1.3 14 1.5 13.9 1.7 13.7L7 8.4L12.3 13.7C12.5 13.9 12.8 14 13 14C13.2 14 13.5 13.9 13.7 13.7C14.1 13.3 14.1 12.7 13.7 12.3L8.4 7L13.7 1.7C14.1 1.3 14.1 0.7 13.7 0.3Z" fill="currentColor"/>
+                  </svg>
+                </div>
+                <div className="flex flex-col px-10 gap-10">
                   {wheelsOptions.map((wheel, index) => (
                     <div
                       key={wheel}
-                      className="cursor-pointer flex flex-col items-center"
-                      onClick={() => handleWheelsSelect(wheel)}
+                      className="cursor-pointer flex gap-5 items-center"
+                      onClick={() => handleWheelsSelect(index)}
                     >
                       <img
                         src={`/Wheels/Car=${carInfo.carType}, Style=${wheelsOptions[index]}.png`}
@@ -229,6 +235,23 @@ const CarSelect = () => {
                     </div>
                   ))}
                 </div>
+                <div className="absolute bottom-0 right-0">
+                    <div className="flex items-center justify-between px-7 mb-6 gap-14">
+                      <div className="flex items-center">
+                        <p className="text-sm tracking-widest text-light-grey">TOTAL</p>
+                        <svg width="16" fill="none" className="h-4 w-auto ml-2 text-light-grey"  height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M8 0C3.6 0 0 3.6 0 8C0 12.4 3.6 16 8 16C12.4 16 16 12.4 16 8C16 3.6 12.4 0 8 0ZM9 12H7V7H9V12ZM8 6C7.4 6 7 5.6 7 5C7 4.4 7.4 4 8 4C8.6 4 9 4.4 9 5C9 5.6 8.6 6 8 6Z" fill="currentColor"/>
+                        </svg>
+                      </div>
+                      <p className="text-2xl">120,000.12€</p> 
+                    </div>
+
+                    <div className="text-center py-5 bg-blue-400" onClick={handleDone}>
+                      <p className=" text-white font-bold px-4 rounded-md">
+                        Done
+                      </p>
+                    </div>
+                </div> 
               </div>
             )}
           </div>

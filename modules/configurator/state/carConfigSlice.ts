@@ -39,6 +39,9 @@ const carConfigSlice = createSlice({
     setColor: (state, action: PayloadAction<string>) => {
       state.color = action.payload;
     },
+    setColorFull: (state, action: PayloadAction<string>) => {
+        state.colorFull = action.payload;
+    },
     setWheels: (state, action: PayloadAction<string>) => {
       state.wheels = action.payload;
     },
@@ -49,6 +52,6 @@ const carConfigSlice = createSlice({
   },
 });
 
-export const { setCarInfo, setColor, setWheels, setInterior, resetCarConfig } = carConfigSlice.actions;
+export const { setCarInfo, setColor, setColorFull, setWheels, setInterior, resetCarConfig } = carConfigSlice.actions;
 
 export default carConfigSlice.reducer;
