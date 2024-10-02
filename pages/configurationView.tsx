@@ -83,8 +83,8 @@ const CarSelect = () => {
                     <hr className="bg-dark-grey h-px"></hr>
                     <div className="flex justify-between items-center">
                         <div className="flex">
-                            <img src={`/Color/Color=${colorChoice}.png`} alt="Color choice" className="h-14 w-auto rounded-full mr-5" />
-                            <p className="flex flex-col justify-center">{colorChoice}</p>
+                            <img src={`/Color/Color=${carInfo.colorFull}.png`} alt="Color choice" className="h-14 w-auto rounded-full mr-5" />
+                            <p className="flex flex-col justify-center">{carInfo.colorFull}</p>
                         </div>
                         <p className="text-light-grey">2,500 €</p>
                     </div>

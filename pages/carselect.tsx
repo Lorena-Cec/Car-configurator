@@ -14,7 +14,8 @@ interface Car {
   name: string;
   year: string;
   image: string;
-  defaultColor: string;    
+  defaultColor: string;   
+  defaultColorFull: string;  
   defaultWheels: string;   
   defaultInterior: string;
   carType: string; 
@@ -47,6 +48,7 @@ const CarSelect = () => {
       name: car.name,
       year: parseInt(car.year), 
       color: car.defaultColor,
+      colorFull: car.defaultColorFull,
       wheels: car.defaultWheels,
       interior: car.defaultInterior,
       carType: car.carType,
