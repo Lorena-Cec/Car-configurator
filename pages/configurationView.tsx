@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import { RootState } from '../store'; 
 
-const CarSelect = () => {
+const configurationView = () => {
   const carInfo = useSelector((state: RootState) => state.carConfig);
   const views = ["Front Left","Back Left","Side","Front","Back"];
   const [currentViewIndex, setCurrentViewIndex] = useState(0);
@@ -44,7 +44,7 @@ const CarSelect = () => {
       </div>
     
       
-        <div className="flex flex-col items-center bg-grey pb-24">
+        <div className="flex flex-col items-center bg-grey pb-24 gap-10">
           <img src={`/${carInfo.name}/View=${views[currentViewIndex]}, Color=${carInfo.color}, Wheel Style=${carInfo.wheels}.png`} alt="Car Configuration" className="h-96 w-auto p-4"/>
           <div className="flex items-center gap-4">
             <img src="/arrowleft.png" alt="Arrow Left" className="h-4 w-auto cursor-pointer" onClick={handlePrevClick} />
@@ -102,7 +102,7 @@ const CarSelect = () => {
                     <div className="flex justify-between items-center">
                         <div className="flex">
                             <img src={`/Interior Color/Color=${carInfo.interior}.png`} alt="Interior choice" className="h-14 w-auto mr-5 rounded-full" />
-                            <p className="text-base flex flex-col justify-center">{carInfo.interior}</p>
+                            <p className="text-base flex flex-col justify-center">{carInfo.interiorFull}</p>
                         </div>
                         <p className="text-light-grey">0 €</p>
                     </div>
@@ -118,4 +118,4 @@ const CarSelect = () => {
 };
   
 
-export default CarSelect;
+export default configurationView;

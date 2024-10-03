@@ -9,11 +9,6 @@ self.__BUILD_MANIFEST = {
   "lowPriorityFiles": [],
   "rootMainFiles": [],
   "pages": {
-    "/": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/index.js"
-    ],
     "/_app": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
@@ -24,35 +19,15 @@ self.__BUILD_MANIFEST = {
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/carselect": [
+    "/configurationInterior": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/carselect.js"
+      "static/chunks/pages/configurationInterior.js"
     ],
-    "/configurationExterior": [
+    "/configurationSummary": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/configurationExterior.js"
-    ],
-    "/configurationView": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/configurationView.js"
-    ],
-    "/home": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/home.js"
-    ],
-    "/login": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/login.js"
-    ],
-    "/register": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/register.js"
+      "static/chunks/pages/configurationSummary.js"
     ]
   },
   "ampFirstPages": []

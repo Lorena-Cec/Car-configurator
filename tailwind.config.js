@@ -8,7 +8,9 @@ module.exports = {
   theme: {
     extend: {
       spacing: {
+        '110': '27.5rem',
         '130': '34rem',
+        '250': '63.25rem',
       },
       colors: {
         transparent: 'transparent',

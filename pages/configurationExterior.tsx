@@ -8,9 +8,10 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setWheels, setColor, setColorFull } from "modules/configurator/state/carConfigSlice";
 
-const CarSelect = () => {
+const ConfigurationExterior = () => {
   const dispatch = useDispatch();
   const carInfo = useSelector((state: RootState) => state.carConfig);
+  const finalConfig = useSelector((state: RootState) => state.carConfig.finalConfig);
   const views = ["Front Left","Back Left","Side","Front","Back"];
   const [currentViewIndex, setCurrentViewIndex] = useState(0);
 
@@ -74,6 +75,7 @@ const CarSelect = () => {
 
   const handleDone = () => {
     setSelectedOption("main"); 
+    console.log(finalConfig);
   };
 
   const handleWheelsSelect = (index: number) => {
@@ -114,7 +116,7 @@ const CarSelect = () => {
 
       <div className="flex h-svh">
         {/* lijevi dio */}
-        <div className="flex flex-col flex-1 justify-center items-center bg-grey align-middle">
+        <div className="flex flex-col flex-1 justify-center items-center bg-grey align-middle gap-10">
           <img src={`/${carInfo.name}/View=${views[currentViewIndex]}, Color=${selectedShortColor}, Wheel Style=${carInfo.wheels}.png`} alt="Car Configuration" className="h-96 w-auto object-contain"/>
           <div className="flex items-center gap-4">
             <img src="/arrowleft.png" alt="Arrow Left" className="h-4 w-auto cursor-pointer" onClick={handlePrevClick}/>
@@ -161,13 +163,16 @@ const CarSelect = () => {
                   </div>
                   <p className="text-2xl">120,000.12€</p> 
                 </div>
-
-                <div className="flex items-center py-5 bg-blue-400 ">
-                  <p className=" text-white font-bold py-2 px-4 rounded-md">
-                    Interior
-                  </p>
-                  <img src="/arrowright.png" alt="Arrow Right" className="h-4 w-auto text-white fill-current" />
-                </div>
+                <Link href="/configurationInterior">
+                  <div className="flex items-center justify-center gap-2 py-5 bg-blue-400">
+                    <p className=" text-white font-bold py-2 rounded-md">
+                      Interior
+                    </p>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-white" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M4.14645 0.146447C3.95118 0.341709 3.95118 0.658291 4.14645 0.853553L11.2929 8L4.14645 15.1464C3.95118 15.3417 3.95118 15.6583 4.14645 15.8536C4.34171 16.0488 4.65829 16.0488 4.85355 15.8536L12.3536 8.35355C12.5488 8.15829 12.5488 7.84171 12.3536 7.64645L4.85355 0.146447C4.65829 -0.0488155 4.34171 -0.0488155 4.14645 0.146447Z" fill="currentColor"/>
+                    </svg>
+                  </div>
+                </Link>
               </div> 
             )}
 
@@ -202,7 +207,7 @@ const CarSelect = () => {
                       <p className="text-2xl">120,000.12€</p> 
                     </div>
 
-                    <div className="text-center py-5 bg-blue-400" onClick={handleDone}>
+                    <div className="text-center py-5 bg-blue-400 cursor-pointer" onClick={handleDone}>
                       <p className=" text-white font-bold px-4 rounded-md">
                         Done
                       </p>
@@ -246,7 +251,7 @@ const CarSelect = () => {
                       <p className="text-2xl">120,000.12€</p> 
                     </div>
 
-                    <div className="text-center py-5 bg-blue-400" onClick={handleDone}>
+                    <div className="text-center py-5 bg-blue-400 cursor-pointer" onClick={handleDone}>
                       <p className=" text-white font-bold px-4 rounded-md">
                         Done
                       </p>
@@ -262,4 +267,4 @@ const CarSelect = () => {
 };
   
 
-export default CarSelect;
+export default ConfigurationExterior;

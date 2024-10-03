@@ -18,6 +18,7 @@ interface Car {
   defaultColorFull: string;  
   defaultWheels: string;   
   defaultInterior: string;
+  defaultInteriorFull: string;
   carType: string; 
 }
 
@@ -51,6 +52,7 @@ const CarSelect = () => {
       colorFull: car.defaultColorFull,
       wheels: car.defaultWheels,
       interior: car.defaultInterior,
+      interiorFull: car.defaultInteriorFull,
       carType: car.carType,
     }));
   };
