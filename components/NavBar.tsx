@@ -50,7 +50,7 @@ const NavBar = () => {
             <div className="absolute right-0 bg-white shadow-lg z-10 dropdown">
             <ul>
                 <li className="hover:bg-blue-400">
-                <Link href="/saved-configurations" className="block whitespace-nowrap px-6 py-4 text-sm text-blue-300 hover:text-white">My Saved Configurations</Link>
+                <Link href="/home" className="block whitespace-nowrap px-6 py-4 text-sm text-blue-300 hover:text-white">My Saved Configurations</Link>
                 </li>
                 <li className="border-b border-grey"></li> 
                 <li className="hover:bg-blue-400">

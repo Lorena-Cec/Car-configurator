@@ -4,9 +4,24 @@ import { useRouter } from 'next/router';
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { RootState } from '../store'; 
+import { getAuth } from "firebase/auth";
+import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { db } from "../lib/firebaseConfig"; 
+
+interface FinalConfig {
+    name: string;
+    year: number;
+    color: string;
+    colorFull: string;
+    wheels: string;
+    interior: string;
+    interiorFull: string;
+    carType: string;
+  }
 
 const SummaryPage = () => {
   const views = ["Front Left","Back Left","Side","Front","Back"];
+  const router = useRouter();
   const [currentViewIndex, setCurrentViewIndex] = useState(0);
   const finalConfig = useSelector((state: RootState) => state.carConfig.finalConfig);
 
@@ -20,6 +35,42 @@ const SummaryPage = () => {
     setCurrentViewIndex((prevIndex) =>
         prevIndex === views.length - 1 ? 0 : prevIndex + 1
     );
+  };
+
+
+const handleSaveConfiguration = async (finalConfig: FinalConfig) => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+  
+    if (user) {
+      try {
+        // Reference to the user's document
+        const userDocRef = doc(db, "users", user.uid);
+  
+        // Update the user's document, add the new configuration to "Saved Configurations"
+        await updateDoc(userDocRef, {
+          savedConfigurations: arrayUnion({
+            carName: finalConfig.name,
+            carYear: finalConfig.year,
+            color: finalConfig.color,
+            colorFull: finalConfig.colorFull,
+            wheels: finalConfig.wheels,
+            interior: finalConfig.interior,
+            interiorFull: finalConfig.interiorFull,
+            carType: finalConfig.carType,
+            // Add more fields if needed
+            timestamp: new Date(), // Add timestamp
+          }),
+        });
+  
+        console.log("Configuration saved successfully");
+        router.push("/home");
+      } catch (error) {
+        console.error("Error saving configuration: ", error);
+      }
+    } else {
+      console.error("User is not logged in");
+    }
   };
 
 
@@ -128,7 +179,7 @@ const SummaryPage = () => {
                     </div>
                     <p className="text-2xl">120,000.12€</p> 
                 </div>
-                <p className="py-7 px-24 bg-blue-400 text-white font-bold" >
+                <p className="py-7 px-24 bg-blue-400 text-white font-bold" onClick={() => handleSaveConfiguration(finalConfig)} >
                     Save your configuration
                 </p>
             </div>
