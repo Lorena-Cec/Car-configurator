@@ -17,6 +17,7 @@ interface Car {
   defaultColor: string;   
   defaultColorFull: string;  
   defaultWheels: string;   
+  defaultWheelsFull: string;   
   defaultInterior: string;
   defaultInteriorFull: string;
   carType: string; 
@@ -51,6 +52,7 @@ const CarSelect = () => {
       color: car.defaultColor,
       colorFull: car.defaultColorFull,
       wheels: car.defaultWheels,
+      wheelsFull: car.defaultWheelsFull,
       interior: car.defaultInterior,
       interiorFull: car.defaultInteriorFull,
       carType: car.carType,
@@ -58,12 +60,12 @@ const CarSelect = () => {
   };
 
   return (
-    <div className="min-h-screen bg-grey">
+    <div className="min-h-screen bg-gray-600">
       <NavBar />
       <div>
         <div className="py-10">
           <h1 className="text-2xl font-normal pl-36 mt-12">Configure a car</h1>
-          <p className="text-sm mt-2 pl-36 text-light-grey">Pick your favorite model and start configuring.</p>
+          <p className="text-sm mt-2 pl-36 text-gray-300">Pick your favorite model and start configuring.</p>
         </div>
         
         
@@ -86,8 +88,8 @@ const CarSelect = () => {
                   <div className="overflow-hidden">
                     <img src={car.image} alt={car.name} className="h-96 relative right-60 bottom-4 object-cover" />
                   </div>
-                  <p className="text-light-grey text-3xl pl-10 font-optician">{car.year}</p>
-                  <h2 className="text-5xl text-dark-grey font-semibold pl-10 font-optician">{car.name}</h2>
+                  <p className="text-gray-300 text-3xl pl-10 font-optician">{car.year}</p>
+                  <h2 className="text-5xl text-gray-100 font-semibold pl-10 font-optician">{car.name}</h2>
                   <Link href="/configurationView">
                     <button className="mt-4 ml-10 bg-blue-500 font-bold text-white py-3 px-9 hover:bg-blue-600"
                     onClick={() => handleCarSelect(car)}

@@ -60,8 +60,8 @@ const LoginForm = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-grey flex flex-col ">
-        <nav className="flex justify-between items-center py-4 px-10 bg-dark-grey text-white">
+    <div className="min-h-screen bg-gray-600 flex flex-col ">
+        <nav className="flex justify-between items-center py-4 px-10 bg-gray-100 text-white">
             <div className="flex items-center">
             <img src="/logo.png" alt="Logo" className="h-10  w-auto" />
             </div>

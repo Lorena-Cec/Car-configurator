@@ -38,7 +38,7 @@ const NavBar = () => {
     };
   }, []);
   return (
-    <nav className="flex justify-between items-center py-4 px-10 bg-dark-grey text-white">
+    <nav className="flex justify-between items-center py-4 px-10 bg-gray-100 text-white">
         <div className="flex items-center">
         <img src="/logo.png" alt="Logo" className="h-10  w-auto" />
         </div>
@@ -52,7 +52,7 @@ const NavBar = () => {
                 <li className="hover:bg-blue-400">
                 <Link href="/home" className="block whitespace-nowrap px-6 py-4 text-sm text-blue-300 hover:text-white">My Saved Configurations</Link>
                 </li>
-                <li className="border-b border-grey"></li> 
+                <li className="border-b gray-500"></li> 
                 <li className="hover:bg-blue-400">
                     <button
                     onClick={handleLogout}

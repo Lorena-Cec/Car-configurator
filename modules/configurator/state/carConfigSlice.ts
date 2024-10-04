@@ -7,6 +7,7 @@ interface FinalConfig {
   color: string;
   colorFull: string;
   wheels: string;
+  wheelsFull: string;
   interior: string;
   interiorFull: string;
   carType: string;
@@ -19,6 +20,7 @@ interface CarConfigState {
   color: string;
   colorFull: string;
   wheels: string;
+  wheelsFull: string;
   interior: string;
   interiorFull: string;
   carType: string;
@@ -32,6 +34,7 @@ const initialState: CarConfigState = {
   color: '',
   colorFull: '',
   wheels: '',
+  wheelsFull: '',
   interior: '',
   interiorFull: '',
   carType: '',
@@ -42,6 +45,7 @@ const initialState: CarConfigState = {
     color: '',
     colorFull: '',
     wheels: '',
+    wheelsFull: '',
     interior: '',
     interiorFull: '',
     carType: '',
@@ -61,6 +65,7 @@ const carConfigSlice = createSlice({
         color: string;
         colorFull: string;
         wheels: string;
+        wheelsFull: string;
         interior: string;
         interiorFull: string;
         carType: string;
@@ -72,6 +77,7 @@ const carConfigSlice = createSlice({
       state.color = action.payload.color;
       state.colorFull = action.payload.colorFull;
       state.wheels = action.payload.wheels;
+      state.wheelsFull = action.payload.wheelsFull;
       state.interior = action.payload.interior;
       state.interiorFull = action.payload.interiorFull;
       state.carType = action.payload.carType;
@@ -83,6 +89,7 @@ const carConfigSlice = createSlice({
         color: state.color,
         colorFull: state.colorFull,
         wheels: state.wheels,
+        wheelsFull: state.wheelsFull,
         interior: state.interior,
         interiorFull: state.interiorFull,
         carType: state.carType,
@@ -92,7 +99,6 @@ const carConfigSlice = createSlice({
     setColor: (state, action: PayloadAction<string>) => {
       state.color = action.payload;
 
-      // Automatically update finalConfig when color changes
       if (state.finalConfig) {
         state.finalConfig.color = action.payload;
       }
@@ -101,7 +107,6 @@ const carConfigSlice = createSlice({
     setColorFull: (state, action: PayloadAction<string>) => {
       state.colorFull = action.payload;
 
-      // Automatically update finalConfig when full color name changes
       if (state.finalConfig) {
         state.finalConfig.colorFull = action.payload;
       }
@@ -110,16 +115,22 @@ const carConfigSlice = createSlice({
     setWheels: (state, action: PayloadAction<string>) => {
       state.wheels = action.payload;
 
-      // Automatically update finalConfig when wheels change
       if (state.finalConfig) {
         state.finalConfig.wheels = action.payload;
+      }
+    },
+
+    setWheelsFull: (state, action: PayloadAction<string>) => {
+      state.wheelsFull = action.payload;
+
+      if (state.finalConfig) {
+        state.finalConfig.wheelsFull = action.payload;
       }
     },
 
     setInterior: (state, action: PayloadAction<string>) => {
       state.interior = action.payload;
 
-      // Automatically update finalConfig when interior changes
       if (state.finalConfig) {
         state.finalConfig.interior = action.payload;
       }
@@ -128,7 +139,6 @@ const carConfigSlice = createSlice({
     setInteriorFull: (state, action: PayloadAction<string>) => {
       state.interiorFull = action.payload;
 
-      // Automatically update finalConfig when full interior name changes
       if (state.finalConfig) {
         state.finalConfig.interiorFull = action.payload;
       }
@@ -143,6 +153,7 @@ export const {
   setColor,
   setColorFull,
   setWheels,
+  setWheelsFull,
   setInterior,
   setInteriorFull,
   resetCarConfig,
