@@ -25,14 +25,16 @@ const configurationView = () => {
     );
   };
 
+  function previousPage(){
+    window.history.back()
+  }
+
   return (
     <div className="min-h-screen bg-gray-600 flex flex-col">
       <NavBar />
       <div className="flex justify-between items-center py-6 px-10 bg-white border-b-2 border-gray-500">
         <div className="flex items-center gap-3">
-          <Link href={"/carselect"}>
-            <img src="/arrowleft.png" alt="Arrow Left" className="h-4  w-auto" />
-          </Link>
+          <img src="/arrowleft.png" alt="Arrow Left" className="h-4  w-auto" onClick={previousPage}/>
           <p className="text-gray-300 text-2xl font-optician">{carInfo.year}</p>
           <p className=" text-gray-100 text-2xl font-semibold font-optician">{carInfo.name}</p>
         </div>

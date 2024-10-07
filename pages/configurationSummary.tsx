@@ -5,15 +5,17 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import { RootState } from '../store'; 
 import { getAuth } from "firebase/auth";
-import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, updateDoc, arrayUnion, collection, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../lib/firebaseConfig"; 
 
 interface FinalConfig {
+    id: string;
     name: string;
     year: number;
     color: string;
     colorFull: string;
     wheels: string;
+    wheelsFull: string;
     interior: string;
     interiorFull: string;
     carType: string;
@@ -41,17 +43,39 @@ const SummaryPage = () => {
   function previousPage(){
     window.history.back()
   }
-
-const handleSaveConfiguration = async (finalConfig: FinalConfig) => {
+  
+  const handleSaveConfiguration = async (finalConfig: FinalConfig) => {
     const auth = getAuth();
     const user = auth.currentUser;
   
     if (user) {
+      const userDocRef = doc(db, "users", user.uid);
+      
       try {
-        const userDocRef = doc(db, "users", user.uid);
+        const userDocSnapshot = await getDoc(userDocRef);
 
-        await updateDoc(userDocRef, {
-          savedConfigurations: arrayUnion({
+        if (!userDocSnapshot.exists()) {
+          await setDoc(userDocRef, {
+            savedConfigurations: []
+          });
+          console.log("New user document created with an empty savedConfigurations array.");
+        }
+  
+        const updatedUserDocSnapshot = await getDoc(userDocRef);
+        const userData = updatedUserDocSnapshot.data();
+
+        if (!userData) {
+          console.error("User data is undefined.");
+          return; 
+        }
+
+        const existingConfigs = userData.savedConfigurations || [];
+
+        const existingConfigIndex = existingConfigs.findIndex((config: { id: string; }) => config.id === finalConfig.id);
+        
+        if (existingConfigIndex > -1) {
+          existingConfigs[existingConfigIndex] = {
+            ...existingConfigs[existingConfigIndex], 
             carName: finalConfig.name,
             carYear: finalConfig.year,
             color: finalConfig.color,
@@ -60,12 +84,29 @@ const handleSaveConfiguration = async (finalConfig: FinalConfig) => {
             interior: finalConfig.interior,
             interiorFull: finalConfig.interiorFull,
             carType: finalConfig.carType,
-            // Add more fields if needed
-            timestamp: new Date(), // Add timestamp
-          }),
+            timestamp: new Date(),
+          };
+        } else {
+          const newConfig = {
+            id: Date.now().toString(),
+            carName: finalConfig.name,
+            carYear: finalConfig.year,
+            color: finalConfig.color,
+            colorFull: finalConfig.colorFull,
+            wheels: finalConfig.wheels,
+            interior: finalConfig.interior,
+            interiorFull: finalConfig.interiorFull,
+            carType: finalConfig.carType,
+            timestamp: new Date(),
+          };
+          existingConfigs.push(newConfig);
+        }
+  
+        await updateDoc(userDocRef, {
+          savedConfigurations: existingConfigs,
         });
   
-        console.log("Configuration saved successfully");
+        console.log("Configuration saved/updated successfully");
         router.push("/home");
       } catch (error) {
         console.error("Error saving configuration: ", error);
@@ -74,6 +115,9 @@ const handleSaveConfiguration = async (finalConfig: FinalConfig) => {
       console.error("User is not logged in");
     }
   };
+  
+
+
 
 
   return (

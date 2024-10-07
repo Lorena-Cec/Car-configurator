@@ -4,18 +4,37 @@ import NavBar from 'components/NavBar';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../lib/firebaseConfig'; 
+import OptionsBar from 'components/OptionsBar';
+import { config } from 'next/dist/build/templates/pages';
 
 interface SavedConfiguration {
+  id: string;
   carName: string;
   carYear: number;
   color: string;
   colorFull: string;
   wheels: string;
+  wheelsFull: string;
   interior: string;
   interiorFull: string;
   carType: string;
   timestamp: any;
 }
+
+interface Car {
+  id: string;
+  name: string;
+  year: number;
+  image: string;
+  defaultColor: string;   
+  defaultColorFull: string;  
+  defaultWheels: string;   
+  defaultWheelsFull: string;   
+  defaultInterior: string;
+  defaultInteriorFull: string;
+  carType: string; 
+}
+
 
 const Home: React.FC = () => {
   const [savedConfigurations, setSavedConfigurations] = useState<SavedConfiguration[]>([]);
@@ -28,14 +47,19 @@ const Home: React.FC = () => {
       if (user) {
         const userDocRef = doc(db, 'users', user.uid);
         const userDoc = await getDoc(userDocRef);
-
+    
         if (userDoc.exists()) {
           const data = userDoc.data();
-          setSavedConfigurations(data.savedConfigurations || []);
+          const savedConfigs = data.savedConfigurations.map((config: any) => ({
+            ...config,
+            id: config.id || Date.now().toString(), 
+          }));
+          setSavedConfigurations(savedConfigs);
         }
       }
       setLoading(false);
     };
+    
 
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -47,6 +71,22 @@ const Home: React.FC = () => {
 
     return () => unsubscribe(); 
   }, []);
+
+  const convertToCar = (config: SavedConfiguration): Car => {
+    return {
+        id: config.id,
+        name: config.carName,
+        year: config.carYear, 
+        image: "", 
+        defaultColor: config.color,
+        defaultColorFull: config.colorFull,
+        defaultWheels: config.wheels,
+        defaultWheelsFull: config.wheels, 
+        defaultInterior: config.interior,
+        defaultInteriorFull: config.interiorFull,
+        carType: config.carType,
+    };
+  };
 
   const nthNumber = (number: number) => {
     if (number > 3 && number < 21) return "th";
@@ -107,11 +147,7 @@ const Home: React.FC = () => {
                   </div>
                 </div>
 
-                <svg width="4" height="16" viewBox="0 0 4 16" fill="none" className='absolute top-5 right-5 text-blue-100 cursor-pointer' xmlns="http://www.w3.org/2000/svg">
-                  <path d="M4 8C4 6.89543 3.10457 6 2 6C0.89543 6 0 6.89543 0 8C0 9.10457 0.89543 10 2 10C3.10457 10 4 9.10457 4 8Z" fill="currentColor"/>
-                  <path d="M4 14C4 12.8954 3.10457 12 2 12C0.89543 12 0 12.8954 0 14C0 15.1046 0.89543 16 2 16C3.10457 16 4 15.1046 4 14Z" fill="currentColor"/>
-                  <path d="M4 2C4 0.895431 3.10457 0 2 0C0.89543 0 0 0.895431 0 2C0 3.10457 0.89543 4 2 4C3.10457 4 4 3.10457 4 2Z" fill="currentColor"/>
-                </svg>
+                <OptionsBar configId={config.id} car={convertToCar(config)}></OptionsBar>
 
               </div>
             ))}
