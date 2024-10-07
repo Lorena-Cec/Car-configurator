@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import NavBar from 'components/NavBar';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '../lib/firebaseConfig'; 
 import OptionsBar from 'components/OptionsBar';
 import { config } from 'next/dist/build/templates/pages';
@@ -50,10 +50,10 @@ const Home: React.FC = () => {
     
         if (userDoc.exists()) {
           const data = userDoc.data();
-          const savedConfigs = data.savedConfigurations.map((config: any) => ({
+          const savedConfigs = (data.savedConfigurations || []).map((config: any) => ({
             ...config,
-            id: config.id || Date.now().toString(), 
-          }));
+            id: config.id || Date.now().toString(),
+        }));
           setSavedConfigurations(savedConfigs);
         }
       }

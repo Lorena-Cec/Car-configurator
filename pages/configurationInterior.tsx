@@ -108,7 +108,7 @@ const ConfigurationInterior = () => {
 
         {/* desni dio */}
 
-        <div className="bg-white border-l-2 border-gray-500 w-80">
+        <div className="bg-white border-l-2 border-gray-500 w-80 relative">
           <div className="flex flex-col p-10 gap-10">
             {selectedOption === "main" && (
               <div className="flex items-center cursor-pointer" onClick={() => setSelectedOption("interior")}>
@@ -121,7 +121,7 @@ const ConfigurationInterior = () => {
             )}
 
             {selectedOption === "main" && (
-              <div className="absolute bottom-0 right-0">
+              <div className="absolute bottom-0 right-0 w-full">
                 <div className="flex items-center justify-between px-7 mb-6 gap-14">
                   <div className="flex items-center">
                     <p className="text-sm tracking-widest text-gray-300">TOTAL</p>

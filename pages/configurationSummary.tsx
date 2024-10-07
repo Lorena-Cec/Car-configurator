@@ -123,20 +123,32 @@ const SummaryPage = () => {
   return (
     <div className="min-h-screen bg-gray-600 flex flex-col">
       <NavBar />
-      <div className="flex justify-between items-center py-6 px-10 bg-white border-b-2 border-gray-500">
+      <div className="flex justify-between items-center py-6 px-10 bg-white border-b-2 border-gray-500 z-0">
         <div className="flex items-center gap-3">
           <img src="/arrowleft.png" alt="Arrow Left" className="h-4  w-auto" onClick={previousPage}/>
           <p className="text-gray-300 text-2xl font-optician">{finalConfig.year}</p>
           <p className=" text-gray-100 text-2xl font-semibold font-optician">{finalConfig.name}</p>
         </div>
-        <div className="flex items-center gap-10">
-            <Link href="/configurationExterior">
-                <p className="text-blue-400 text-base">Edit Configuration</p>
-            </Link>
-            <p className="text-red-error text-base">Delete</p>
-        </div>
+          <div className="flex items-center gap-10">
+            <div className="flex gap-1">
+              <p className="text-gray-300 text-base">01</p>
+              <p className="text-gray-300 text-base">Exterior</p>
+            </div>
+            <div className="flex gap-1">
+              <p className="text-gray-300 text-base">02</p>
+              <p className="text-gray-300 text-base">Interior</p>
+            </div>
+            <div className="flex gap-1">
+              <p className="text-gray-300 font-bold text-base">03</p>
+              <p className="text-gray-100 font-bold text-base">Summary</p>
+            </div>
+          </div> 
       </div>
-    
+      <div className="flex flex-col items-center justify-between gap-4 py-10">
+        <p className="text-3.5xl text-gray-100 font-bold">Almost Done!</p>
+        <p className="text-xl text-gray-100">Review your configuration and save your car.</p>
+      </div>
+      
       
         <div className="flex flex-col items-center bg-gray-600 pb-24 gap-10">
           <img src={`/${finalConfig.name}/View=${views[currentViewIndex]}, Color=${finalConfig.color}, Wheel Style=${finalConfig.wheels}.png`} alt="Car Configuration" className="h-96 w-auto p-4"/>
@@ -171,10 +183,15 @@ const SummaryPage = () => {
             <div>
                 <p className="text-gray-100 whitespace-nowrap text-2xl">Your configuration details</p>
             </div>
-            <div className="flex flex-col gap-10 w-full">
+            <div className="flex flex-col gap-14 w-full">
                 <div className="flex flex-col gap-5">
+                  <div className="flex items-center justify-between">
                     <p className="text-2xl text-gray-200">Exterior</p>
-                    <hr className="bg-gray-100 h-px"></hr>
+                    <Link href="/configurationExterior">
+                      <p className="text-sm text-blue-400">Edit</p>
+                    </Link>
+                  </div>
+                    <hr className="bg-gray-500 h-0.5"></hr>
                     <div className="flex justify-between items-center">
                         <div className="flex">
                             <img src={`/Color/Color=${finalConfig.colorFull}.png`} alt="Color choice" className="h-14 w-auto rounded-full mr-5" />
@@ -191,8 +208,13 @@ const SummaryPage = () => {
                     </div>
                 </div>
                 <div className="flex flex-col gap-5">
-                    <p className="text-2xl text-gray-200">Interior</p>
-                    <hr className="bg-gray-100 h-px"></hr>
+                    <div className="flex items-center justify-between">
+                      <p className="text-2xl text-gray-200">Interior</p>
+                      <Link href="/configurationInterior">
+                        <p className="text-sm text-blue-400">Edit</p>
+                      </Link>
+                    </div>
+                    <hr className="bg-gray-500 h-0.5"></hr>
                     <div className="flex justify-between items-center">
                         <div className="flex">
                             <img src={`/Interior Color/Color=${finalConfig.interior}.png`} alt="Interior choice" className="h-14 w-auto mr-5 rounded-full" />
@@ -202,7 +224,7 @@ const SummaryPage = () => {
                     </div>
                 </div>
                 <div className="flex items-center justify-between">
-                    <p className="text-lg font-semibold text-gray-200">TOTAL</p>
+                    <p className="text-2xl font-bold text-gray-200">Total</p>
                     <p className="text-2xl text-gray-100 font-semibold">120,000.12€</p> 
                 </div>
             </div>

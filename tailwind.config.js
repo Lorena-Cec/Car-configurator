@@ -8,6 +8,7 @@ module.exports = {
   theme: {
     extend: {
       spacing: {
+        '0.5': '2px',
         '29': '7.5rem',
         '105': '26.25rem',
         '110': '27.5rem',
@@ -40,6 +41,9 @@ module.exports = {
         'labels-small': ['11px', {
           lineHeight: '16px',
           letterSpacing: '2px',
+        }],
+        '3.5xl': ['40px', {
+          lineHeight: '48px',
         }],
       },
     },
