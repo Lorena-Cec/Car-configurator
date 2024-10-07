@@ -29,25 +29,13 @@ const ConfigurationInterior = () => {
   const shortInteriorOptions = carInteriorShort[carInfo.carType];
 
   const [selectedInteriorIndex, setSelectedInteriorIndex] = useState(0);
-
-  const selectedFullInterior = fullInteriorOptions[selectedInteriorIndex];
-  const selectedShortInterior = shortInteriorOptions[selectedInteriorIndex];
-
   const [tempInteriorIndex, setTempInteriorIndex] = useState<number | null>(null); 
 
   const handleInteriorSelect = (index: number) => {  
-    console.log("index is",index)
     setTempInteriorIndex(index);   
-    console.log("real is",selectedInteriorIndex)
   };
 
-  useEffect(() => {
-    console.log("tempInteriorIndex has been updated:", tempInteriorIndex);
-  }, [tempInteriorIndex]);
-
   const handleDone = () => {
-    console.log("temp is",tempInteriorIndex)
-    console.log("real is",selectedInteriorIndex)
     if (tempInteriorIndex !== null) {
       setSelectedInteriorIndex(tempInteriorIndex); 
       dispatch(setInterior(shortInteriorOptions[tempInteriorIndex])); 
@@ -58,8 +46,6 @@ const ConfigurationInterior = () => {
 
   const handleExit = () => {
     setTempInteriorIndex(null);
-    console.log("temp is",tempInteriorIndex)
-    console.log("real is",selectedInteriorIndex)
     setSelectedOption("main");
   }
 
