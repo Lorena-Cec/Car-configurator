@@ -98,15 +98,15 @@ const RegisterForm = () => {
               onChange={() => setRememberMe(!rememberMe)}
               className="mr-2"
             />
-            <label htmlFor="rememberMe" className="text-sm text-gray-600">Remember Me</label>
+            <label htmlFor="rememberMe" className="text-sm text-gray-400">Remember Me</label>
           </div>
 
           <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">
             Register
           </button>
           <GoogleAuthButton isLogin={false} />
-          <p className="text-sm text-gray-500">
-            Already have an account?
+          <p className="text-sm text-gray-400">
+            Already have an account?{" "} 
             <button
             type="button"
             onClick={() => router.push('login')}

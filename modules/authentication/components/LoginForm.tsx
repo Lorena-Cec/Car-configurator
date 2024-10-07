@@ -95,15 +95,15 @@ const LoginForm = () => {
               onChange={() => setRememberMe(!rememberMe)}
               className="mr-2"
             />
-            <label htmlFor="rememberMe" className="text-sm text-gray-600">Remember Me</label>
+            <label htmlFor="rememberMe" className="text-sm text-gray-400">Remember Me</label>
           </div>
 
           <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">
             Login
           </button>
           <GoogleAuthButton isLogin={true} />
-          <p className="text-sm text-gray-500">
-            Forgot 
+          <p className="text-sm text-gray-400">
+            Forgot{" "} 
             <button 
               type="button" 
               onClick={handleForgotPassword} 
@@ -112,8 +112,8 @@ const LoginForm = () => {
               Password?
             </button>
           </p>
-          <p className="text-sm text-gray-500">
-            Don't have an account? 
+          <p className="text-sm text-gray-400">
+            Don't have an account?{" "}
             <button
             type="button"
             onClick={() => router.push('register')}
