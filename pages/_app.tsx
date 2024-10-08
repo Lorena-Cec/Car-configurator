@@ -2,12 +2,15 @@ import '../styles/globals.css';
 import '@fontsource/inter';
 import type { AppProps } from 'next/app'; 
 import { Provider } from 'react-redux';  // Import Provider
-import store from '../store/index';  // Import tvoj Redux store
+import { store, persistor } from '../store';  // Import tvoj Redux store
+import { PersistGate } from 'redux-persist/integration/react';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Provider store={store}>  {/* Omotaj s Provider */}
-      <Component {...pageProps} />
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <Component {...pageProps} />
+      </PersistGate>
     </Provider>
   ); 
 }

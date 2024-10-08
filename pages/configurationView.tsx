@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import NavBar from "../components/NavBar"; 
 import { useRouter } from 'next/router';
 import Link from "next/link";
@@ -12,7 +12,6 @@ const configurationView = () => {
   const [currentViewIndex, setCurrentViewIndex] = useState(0);
 
   console.log(carInfo);
-  console.log(finalConfig);
 
   const handlePrevClick = () => {
     setCurrentViewIndex((prevIndex) =>
