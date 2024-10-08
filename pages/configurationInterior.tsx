@@ -3,7 +3,7 @@ import NavBar from "../components/NavBar";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
-import { setInterior, setInteriorFull } from "modules/configurator/state/carConfigSlice";
+import { setInterior, setInteriorFull, setInteriorPrice } from "modules/configurator/state/carConfigSlice";
 
 const ConfigurationInterior = () => {
   const carInfo = useSelector((state: RootState) => state.carConfig)
@@ -12,6 +12,8 @@ const ConfigurationInterior = () => {
   const views = ["Dash", "Seats"];
   const [currentViewIndex, setCurrentViewIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<"main" | "interior">("main");
+  const totalPrice = carInfo.price + carInfo.colorPrice + carInfo.wheelsPrice + carInfo.interiorPrice;
+  const [totalPriceInterior, setTotalPriceInterior] = useState(carInfo.price + carInfo.colorPrice + carInfo.wheelsPrice);
 
   const carInteriorFull: { [key: string]: string[] } = {
     RS5: ["Black and grey", "Black and red", "Lunar Silver"],
@@ -25,14 +27,25 @@ const ConfigurationInterior = () => {
     "e-tron": ["Black", "Red"]
   };
 
+  const carInteriorPrice: { [key: string]: number[] } = {
+    RS5: [0, 100, 50],
+    RS6: [0, 100, 150],
+    "e-tron": [0, 50]
+  };
+
   const fullInteriorOptions = carInteriorFull[carInfo.carType];
   const shortInteriorOptions = carInteriorShort[carInfo.carType];
+  const carInteriorOptionsPrice = carInteriorPrice[carInfo.carType];
 
-  const [selectedInteriorIndex, setSelectedInteriorIndex] = useState(0);
+  const [selectedInteriorIndex, setSelectedInteriorIndex] = useState(() => {
+    return carInteriorFull[finalConfig.carType]?.indexOf(finalConfig.interiorFull) ?? 0;
+  });
+
   const [tempInteriorIndex, setTempInteriorIndex] = useState<number | null>(null); 
 
   const handleInteriorSelect = (index: number) => {  
     setTempInteriorIndex(index);   
+    setTotalPriceInterior(carInfo.price + carInfo.wheelsPrice + carInfo.colorPrice + carInteriorOptionsPrice[index]);
   };
 
   const handleDone = () => {
@@ -40,6 +53,7 @@ const ConfigurationInterior = () => {
       setSelectedInteriorIndex(tempInteriorIndex); 
       dispatch(setInterior(shortInteriorOptions[tempInteriorIndex])); 
       dispatch(setInteriorFull(fullInteriorOptions[tempInteriorIndex])); 
+      dispatch(setInteriorPrice(carInteriorOptionsPrice[tempInteriorIndex]))
     }
     setSelectedOption("main"); 
   };
@@ -117,7 +131,7 @@ const ConfigurationInterior = () => {
         <div className="bg-white border-l-2 border-gray-500 w-80">
           <div className="flex flex-col p-10 gap-10">
             {selectedOption === "main" && (
-              <div className="flex items-center cursor-pointer" onClick={() => setSelectedOption("interior")}>
+              <div className="flex items-center cursor-pointer" onClick={function(event){ setSelectedOption("interior"); setTempInteriorIndex(displayedInteriorIndex); handleInteriorSelect(displayedInteriorIndex);}}>
                 <img src={`/Interior Color/Color=${shortInteriorOptions[displayedInteriorIndex]}.png`} alt="Color choice" className="h-14 w-auto rounded-full mr-5" />
                 <div>
                   <p className="text-base">{fullInteriorOptions[displayedInteriorIndex]}</p>
@@ -128,14 +142,14 @@ const ConfigurationInterior = () => {
 
             {selectedOption === "main" && (
               <div className="absolute bottom-0 right-0 w-80">
-                <div className="flex items-center justify-between px-7 mb-6 gap-14">
+                <div className="flex items-center justify-between px-6 mb-6 gap-10">
                   <div className="flex items-center">
                     <p className="text-sm tracking-widest text-gray-300">TOTAL</p>
                     <svg width="16" fill="none" className="h-4 w-auto ml-2 text-gray-300"  height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
                       <path d="M8 0C3.6 0 0 3.6 0 8C0 12.4 3.6 16 8 16C12.4 16 16 12.4 16 8C16 3.6 12.4 0 8 0ZM9 12H7V7H9V12ZM8 6C7.4 6 7 5.6 7 5C7 4.4 7.4 4 8 4C8.6 4 9 4.4 9 5C9 5.6 8.6 6 8 6Z" fill="currentColor"/>
                     </svg>
                   </div>
-                  <p className="text-2xl">120,000.12€</p> 
+                  <p className="text-2xl">{totalPrice.toFixed(2)} €</p> 
                 </div>
                 <Link href="/configurationSummary">
                   <div className="flex items-center justify-center gap-2 py-5 bg-blue-400">
@@ -175,19 +189,24 @@ const ConfigurationInterior = () => {
                           </div>
                         )}
                       </div>
-                      <p className="text-sm mt-2">{fullInteriorOptions[index]}</p> 
+                      <div className="flex flex-col gap-1">
+                        <p className="text-sm">{fullInteriorOptions[index]}</p> 
+                        {tempInteriorIndex === index && ( 
+                          <p className="text-sm text-gray-300">{carInteriorOptionsPrice[index]} €</p> 
+                        )}
+                      </div> 
                     </div>
                   ))}
                 </div>
-                <div className="absolute bottom-0 right-0">
-                    <div className="flex items-center justify-between px-7 mb-6 gap-14">
+                <div className="absolute bottom-0 right-0 w-80">
+                    <div className="flex items-center justify-between px-6 mb-6 gap-10">
                       <div className="flex items-center">
                         <p className="text-sm tracking-widest text-gray-300">TOTAL</p>
                         <svg width="16" fill="none" className="h-4 w-auto ml-2 text-gray-300 cursor-pointer"  height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
                           <path d="M8 0C3.6 0 0 3.6 0 8C0 12.4 3.6 16 8 16C12.4 16 16 12.4 16 8C16 3.6 12.4 0 8 0ZM9 12H7V7H9V12ZM8 6C7.4 6 7 5.6 7 5C7 4.4 7.4 4 8 4C8.6 4 9 4.4 9 5C9 5.6 8.6 6 8 6Z" fill="currentColor"/>
                         </svg>
                       </div>
-                      <p className="text-2xl">120,000.12€</p> 
+                      <p className="text-2xl">{totalPriceInterior.toFixed(2)} €</p> 
                     </div>
 
                     <div className="text-center py-5 bg-blue-400 cursor-pointer" onClick={handleDone}>

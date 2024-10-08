@@ -3,6 +3,6 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/home": "pages/home.js",
-  "/register": "pages/register.js",
-  "/login": "pages/login.js"
+  "/carselect": "pages/carselect.js",
+  "/configurationView": "pages/configurationView.js"
 }

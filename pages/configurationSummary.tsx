@@ -19,6 +19,10 @@ interface FinalConfig {
     interior: string;
     interiorFull: string;
     carType: string;
+    price: number;
+    colorPrice: number;
+    wheelsPrice: number;
+    interiorPrice: number;
   }
 
 const SummaryPage = () => {
@@ -26,6 +30,12 @@ const SummaryPage = () => {
   const router = useRouter();
   const [currentViewIndex, setCurrentViewIndex] = useState(0);
   const finalConfig = useSelector((state: RootState) => state.carConfig.finalConfig);
+  const { price, colorPrice, wheelsPrice, interiorPrice } = useSelector(
+    (state:RootState) => state.carConfig
+  );
+
+  const totalPrice = price + colorPrice + wheelsPrice + interiorPrice;
+
 
   const handlePrevClick = () => {
     setCurrentViewIndex((prevIndex) =>
@@ -84,6 +94,10 @@ const SummaryPage = () => {
             interior: finalConfig.interior,
             interiorFull: finalConfig.interiorFull,
             carType: finalConfig.carType,
+            price: finalConfig.price,
+            colorPrice: finalConfig.colorPrice,
+            wheelsPrice: finalConfig.wheelsPrice,
+            interiorPrice: finalConfig.interiorPrice,
             timestamp: new Date(),
           };
         } else {
@@ -97,6 +111,10 @@ const SummaryPage = () => {
             interior: finalConfig.interior,
             interiorFull: finalConfig.interiorFull,
             carType: finalConfig.carType,
+            price: finalConfig.price,
+            colorPrice: finalConfig.colorPrice,
+            wheelsPrice: finalConfig.wheelsPrice,
+            interiorPrice: finalConfig.interiorPrice,
             timestamp: new Date(),
           };
           existingConfigs.push(newConfig);
@@ -174,7 +192,7 @@ const SummaryPage = () => {
                         <path d="M8 0C3.6 0 0 3.6 0 8C0 12.4 3.6 16 8 16C12.4 16 16 12.4 16 8C16 3.6 12.4 0 8 0ZM9 12H7V7H9V12ZM8 6C7.4 6 7 5.6 7 5C7 4.4 7.4 4 8 4C8.6 4 9 4.4 9 5C9 5.6 8.6 6 8 6Z" fill="currentColor"/>
                     </svg>
                 </div>
-                <p className="text-gray-100 text-2xl">120,000.12 €</p>
+                <p className="text-gray-100 text-2xl">{totalPrice.toFixed(2)} €</p>
             </div>
         </div>
         
@@ -197,14 +215,14 @@ const SummaryPage = () => {
                             <img src={`/Color/Color=${finalConfig.colorFull}.png`} alt="Color choice" className="h-14 w-auto rounded-full mr-5" />
                             <p className="flex flex-col justify-center">{finalConfig.colorFull}</p>
                         </div>
-                        <p className="text-gray-300">2,500 €</p>
+                        <p className="text-gray-300">{colorPrice} €</p>
                     </div>
                     <div className="flex justify-between items-center">
                         <div className="flex">
                             <img src={`/Wheels/Car=${finalConfig.carType}, Style=${finalConfig.wheels}.png`} alt="Wheel choice" className="h-14 w-auto mr-5" />
-                            <p className="text-base flex flex-col justify-center">{finalConfig.wheels}</p>
+                            <p className="text-base flex flex-col justify-center">{finalConfig.wheelsFull}</p>
                         </div>
-                        <p className="text-gray-300">0 €</p>
+                        <p className="text-gray-300">{wheelsPrice} €</p>
                     </div>
                 </div>
                 <div className="flex flex-col gap-5">
@@ -220,12 +238,12 @@ const SummaryPage = () => {
                             <img src={`/Interior Color/Color=${finalConfig.interior}.png`} alt="Interior choice" className="h-14 w-auto mr-5 rounded-full" />
                             <p className="text-base flex flex-col justify-center">{finalConfig.interiorFull}</p>
                         </div>
-                        <p className="text-gray-300">0 €</p>
+                        <p className="text-gray-300">{interiorPrice} €</p>
                     </div>
                 </div>
                 <div className="flex items-center justify-between">
                     <p className="text-2xl font-bold text-gray-200">Total</p>
-                    <p className="text-2xl text-gray-100 font-semibold">120,000.12€</p> 
+                    <p className="text-2xl text-gray-100 font-semibold">{totalPrice.toFixed(2)} €</p> 
                 </div>
             </div>
         </div>   
@@ -243,7 +261,7 @@ const SummaryPage = () => {
                         <path d="M8 0C3.6 0 0 3.6 0 8C0 12.4 3.6 16 8 16C12.4 16 16 12.4 16 8C16 3.6 12.4 0 8 0ZM9 12H7V7H9V12ZM8 6C7.4 6 7 5.6 7 5C7 4.4 7.4 4 8 4C8.6 4 9 4.4 9 5C9 5.6 8.6 6 8 6Z" fill="currentColor"/>
                     </svg>
                     </div>
-                    <p className="text-2xl">120,000.12€</p> 
+                    <p className="text-2xl">{totalPrice.toFixed(2)} €</p> 
                 </div>
                 <p className="py-7 px-24 bg-blue-400 text-white font-bold cursor-pointer" onClick={() => handleSaveConfiguration(finalConfig)} >
                     Save your configuration

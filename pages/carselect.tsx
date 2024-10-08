@@ -21,6 +21,10 @@ interface Car {
   defaultInterior: string;
   defaultInteriorFull: string;
   carType: string; 
+  price: number;
+  colorPrice: number;
+  wheelsPrice: number;
+  interiorPrice: number;
 }
 
 
@@ -56,6 +60,10 @@ const CarSelect = () => {
       interior: car.defaultInterior,
       interiorFull: car.defaultInteriorFull,
       carType: car.carType,
+      price: car.price,
+      colorPrice: car.colorPrice,
+      wheelsPrice: car.wheelsPrice,
+      interiorPrice: car.interiorPrice,
     }));
   };
 

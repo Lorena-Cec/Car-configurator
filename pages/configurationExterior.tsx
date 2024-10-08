@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "store";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setWheels, setColor, setColorFull, setWheelsFull } from "modules/configurator/state/carConfigSlice";
+import { setWheels, setColor, setColorFull, setWheelsFull, setColorPrice, setWheelsPrice } from "modules/configurator/state/carConfigSlice";
 
 const ConfigurationExterior = () => {
   const dispatch = useDispatch();
@@ -14,8 +14,9 @@ const ConfigurationExterior = () => {
   const finalConfig = useSelector((state: RootState) => state.carConfig.finalConfig);
   const views = ["Front Left","Back Left","Side","Front","Back"];
   const [currentViewIndex, setCurrentViewIndex] = useState(0);
-
-  console.log(finalConfig);
+  const totalPrice = carInfo.price + carInfo.colorPrice + carInfo.wheelsPrice + carInfo.interiorPrice;
+  const [totalPriceWheels, setTotalPriceWheels] = useState(carInfo.price + carInfo.colorPrice + carInfo.interiorPrice);
+  const [totalPriceColor, setTotalPriceColor] = useState(carInfo.price + carInfo.wheelsPrice + carInfo.interiorPrice);
 
   const handlePrevClick = () => {
     setCurrentViewIndex((prevIndex) =>
@@ -42,11 +43,23 @@ const ConfigurationExterior = () => {
     RS6: ["Blue", "Black", "White"],
     "e-tron": ["Green", "White"]
   };
+
+  const carColorsPrice: { [key: string]: number[] } = {
+    RS5: [2500, 1000, 500],
+    RS6: [2500, 1500, 1000],
+    "e-tron": [2700, 3000]
+  };
   
   const carWheelsOptions: { [key: string]: string[] } = {
     RS5: ["One", "Two"],
     RS6: ["One", "Two"],
     "e-tron": ["One", "Two"],
+  };
+
+  const carWheelsPrice: { [key: string]: number[] } = {
+    RS5: [100, 50],
+    RS6: [0, 50],
+    "e-tron": [100, 75],
   };
   
   const carWheelsName: { [key: string]: string[] } = {
@@ -59,33 +72,40 @@ const ConfigurationExterior = () => {
   const shortColorOptions = carColorsShort[carInfo.carType];
   const wheelsOptions = carWheelsOptions[carInfo.carType];
   const wheelsOptionsName = carWheelsName[carInfo.carType];
+  const colorPriceOptions = carColorsPrice[carInfo.carType];
+  const wheelPriceOptions = carWheelsPrice[carInfo.carType];
 
-  const [selectedColorIndex, setSelectedColorIndex] = useState(0);
-  const [selectedWheelIndex, setSelectedWheelIndex] = useState(0);
+  const [selectedColorIndex, setSelectedColorIndex] = useState(() => {
+    return carColorsFull[finalConfig.carType]?.indexOf(finalConfig.colorFull) ?? 0;
+  });
+  
+  const [selectedWheelIndex, setSelectedWheelIndex] = useState(() => {
+    return carWheelsOptions[finalConfig.carType]?.indexOf(finalConfig.wheels) ?? 0;
+  });
+  
+
   const [tempColorIndex, setTempColorIndex] = useState<number | null>(null); 
   const [tempWheelsIndex, setTempWheelsIndex] = useState<number | null>(null); 
-
-  const selectedFullColor = fullColorOptions[selectedColorIndex];
-  const selectedShortColor = shortColorOptions[selectedColorIndex];
-
-  const selectedWheel = wheelsOptions[selectedWheelIndex];
-  const selectedWheelName = wheelsOptionsName[selectedWheelIndex];
 
   const handleColorDone = () => {
     if (tempColorIndex !== null) {
       setSelectedColorIndex(tempColorIndex); 
       dispatch(setColor(shortColorOptions[tempColorIndex])); 
       dispatch(setColorFull(fullColorOptions[tempColorIndex])); 
+      dispatch(setColorPrice(colorPriceOptions[tempColorIndex])); 
+      setTotalPriceWheels(carInfo.price + colorPriceOptions[tempColorIndex] + carInfo.interiorPrice + carInfo.wheelsPrice);
     }
     setSelectedOption("main"); 
   };
 
   const handleColorSelect = (index: number) => {  
     setTempColorIndex(index);   
+    setTotalPriceColor(carInfo.price + carInfo.wheelsPrice + carInfo.interiorPrice + colorPriceOptions[index]);
   };
 
   const handleWheelsSelect = (index: number) => {  
     setTempWheelsIndex(index);   
+    setTotalPriceWheels(carInfo.price + carInfo.colorPrice + carInfo.interiorPrice + wheelPriceOptions[index]);
   };
 
   const handleColorExit = () => {
@@ -100,9 +120,11 @@ const ConfigurationExterior = () => {
 
   const handleWheelsDone = () => {
     if (tempWheelsIndex !== null) {
-      setSelectedColorIndex(tempWheelsIndex); 
+      setSelectedWheelIndex(tempWheelsIndex); 
       dispatch(setWheels(wheelsOptions[tempWheelsIndex])); 
       dispatch(setWheelsFull(wheelsOptionsName[tempWheelsIndex])); 
+      dispatch(setWheelsPrice(wheelPriceOptions[tempWheelsIndex])); 
+      setTotalPriceColor(carInfo.price + carInfo.colorPrice + carInfo.interiorPrice + wheelPriceOptions[tempWheelsIndex]);
     }
     setSelectedOption("main"); 
   };
@@ -159,7 +181,7 @@ const ConfigurationExterior = () => {
         <div className="bg-white border-l-2 border-gray-500 w-80">
           <div className="flex flex-col p-10 gap-10">
             {selectedOption === "main" && (
-              <div className="flex items-center cursor-pointer" onClick={() => setSelectedOption("colors")}>
+              <div className="flex items-center cursor-pointer" onClick={function(event){ setSelectedOption("colors"); setTempColorIndex(displayedColorIndex); handleColorSelect(displayedColorIndex);}}>
                 <img src={`/Color/Color=${finalConfig.colorFull}.png`} alt="Color choice" className="h-14 w-auto rounded-full mr-5" />
                 <div>
                   <p className="text-base">{finalConfig.colorFull}</p>
@@ -169,7 +191,7 @@ const ConfigurationExterior = () => {
             )}
 
             {selectedOption === "main" && (
-              <div className="flex items-center cursor-pointer" onClick={() => setSelectedOption("wheels")}>
+              <div className="flex items-center cursor-pointer" onClick={function(event){ setSelectedOption("wheels"); setTempWheelsIndex(displayedWheelsIndex); handleWheelsSelect(displayedWheelsIndex);}}>
                 <img src={`/Wheels/Car=${carInfo.carType}, Style=${finalConfig.wheels}.png`} alt="Wheel choice" className="h-14 w-auto mr-5" />
                 <div>
                   <p className="text-base">{finalConfig.wheelsFull}</p>
@@ -179,14 +201,14 @@ const ConfigurationExterior = () => {
             )}
             {selectedOption === "main" && (
               <div className="absolute  bottom-0 right-0 w-80">
-                <div className="flex items-center justify-between gap-14 px-6 pb-6">
+                <div className="flex items-center justify-between gap-10 px-6 pb-6">
                   <div className="flex items-center">
                     <p className="text-sm tracking-widest text-gray-300">TOTAL</p>
                     <svg width="16" fill="none" className="h-4 w-auto ml-2 text-gray-300"  height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
                       <path d="M8 0C3.6 0 0 3.6 0 8C0 12.4 3.6 16 8 16C12.4 16 16 12.4 16 8C16 3.6 12.4 0 8 0ZM9 12H7V7H9V12ZM8 6C7.4 6 7 5.6 7 5C7 4.4 7.4 4 8 4C8.6 4 9 4.4 9 5C9 5.6 8.6 6 8 6Z" fill="currentColor"/>
                     </svg>
                   </div>
-                  <p className="text-2xl">120,000.12€</p> 
+                  <p className="text-2xl">{totalPrice.toFixed(2)} €</p> 
                 </div>
                 <Link href="/configurationInterior">
                   <div className="flex items-center justify-center gap-2 py-5 bg-blue-400">
@@ -227,20 +249,25 @@ const ConfigurationExterior = () => {
                       )}
                       </div>
                       
-                      <p className="text-sm mt-2">{color}</p> 
+                      <div className="flex flex-col gap-1">
+                        <p className="text-sm">{color}</p> 
+                        {tempColorIndex === index && ( 
+                          <p className="text-sm text-gray-300">{colorPriceOptions[index]} €</p> 
+                        )}
+                      </div> 
                       
                     </div>
                   ))}
                 </div>
-                <div className="absolute bottom-0 right-0">
-                    <div className="flex items-center justify-between px-7 mb-6 gap-14">
+                <div className="absolute bottom-0 right-0 w-80">
+                    <div className="flex items-center justify-between px-6 mb-6 gap-10">
                       <div className="flex items-center">
                         <p className="text-sm tracking-widest text-gray-300">TOTAL</p>
                         <svg width="16" fill="none" className="h-4 w-auto ml-2 text-gray-300 cursor-pointer"  height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
                           <path d="M8 0C3.6 0 0 3.6 0 8C0 12.4 3.6 16 8 16C12.4 16 16 12.4 16 8C16 3.6 12.4 0 8 0ZM9 12H7V7H9V12ZM8 6C7.4 6 7 5.6 7 5C7 4.4 7.4 4 8 4C8.6 4 9 4.4 9 5C9 5.6 8.6 6 8 6Z" fill="currentColor"/>
                         </svg>
                       </div>
-                      <p className="text-2xl">120,000.12€</p> 
+                      <p className="text-2xl">{totalPriceColor.toFixed(2)} €</p> 
                     </div>
 
                     <div className="text-center py-5 bg-blue-400 cursor-pointer" onClick={handleColorDone}>
@@ -282,19 +309,25 @@ const ConfigurationExterior = () => {
                         )}
                       </div>
                       
-                      <p className="text-sm mt-2">{wheelsOptionsName[index]}</p>
+                      <div className="flex flex-col gap-1">
+                        <p className="text-sm">{wheelsOptionsName[index]}</p> 
+                        {tempWheelsIndex === index && ( 
+                          <p className="text-sm text-gray-300">{wheelPriceOptions[index]} €</p> 
+                        )}
+                      </div> 
+
                     </div>
                   ))}
                 </div>
-                <div className="absolute bottom-0 right-0">
-                    <div className="flex items-center justify-between px-7 mb-6 gap-14">
+                <div className="absolute bottom-0 right-0 w-80">
+                    <div className="flex items-center justify-between px-6 mb-6 gap-10">
                       <div className="flex items-center">
                         <p className="text-sm tracking-widest text-gray-300">TOTAL</p>
                         <svg width="16" fill="none" className="h-4 w-auto ml-2 text-gray-300"  height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
                           <path d="M8 0C3.6 0 0 3.6 0 8C0 12.4 3.6 16 8 16C12.4 16 16 12.4 16 8C16 3.6 12.4 0 8 0ZM9 12H7V7H9V12ZM8 6C7.4 6 7 5.6 7 5C7 4.4 7.4 4 8 4C8.6 4 9 4.4 9 5C9 5.6 8.6 6 8 6Z" fill="currentColor"/>
                         </svg>
                       </div>
-                      <p className="text-2xl">120,000.12€</p> 
+                      <p className="text-2xl">{totalPriceWheels.toFixed(2)} €</p> 
                     </div>
 
                     <div className="text-center py-5 bg-blue-400 cursor-pointer" onClick={handleWheelsDone}>

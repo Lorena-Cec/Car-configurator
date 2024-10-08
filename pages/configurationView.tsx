@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar"; 
 import { useRouter } from 'next/router';
 import Link from "next/link";
@@ -12,12 +12,15 @@ const configurationView = () => {
   const [currentViewIndex, setCurrentViewIndex] = useState(0);
 
   console.log(carInfo);
+  console.log(finalConfig);
 
   const handlePrevClick = () => {
     setCurrentViewIndex((prevIndex) =>
         prevIndex === 0 ? views.length - 1 : prevIndex -1
     );
   };
+
+  const totalPrice = carInfo.price + carInfo.colorPrice + carInfo.wheelsPrice + carInfo.interiorPrice;
 
   const handleNextClick = () => {
     setCurrentViewIndex((prevIndex) =>
@@ -71,7 +74,7 @@ const configurationView = () => {
                         <path d="M8 0C3.6 0 0 3.6 0 8C0 12.4 3.6 16 8 16C12.4 16 16 12.4 16 8C16 3.6 12.4 0 8 0ZM9 12H7V7H9V12ZM8 6C7.4 6 7 5.6 7 5C7 4.4 7.4 4 8 4C8.6 4 9 4.4 9 5C9 5.6 8.6 6 8 6Z" fill="currentColor"/>
                     </svg>
                 </div>
-                <p className="text-gray-100 text-2xl">120,000.12 €</p>
+                <p className="text-gray-100 text-2xl">{totalPrice.toFixed(2)} €</p>
             </div>
         </div>
         
@@ -89,14 +92,14 @@ const configurationView = () => {
                             <img src={`/Color/Color=${carInfo.colorFull}.png`} alt="Color choice" className="h-14 w-auto rounded-full mr-5" />
                             <p className="flex flex-col justify-center">{carInfo.colorFull}</p>
                         </div>
-                        <p className="text-gray-300">2,500 €</p>
+                        <p className="text-gray-300">{carInfo.colorPrice} €</p>
                     </div>
                     <div className="flex justify-between items-center">
                         <div className="flex">
                             <img src={`/Wheels/Car=${carInfo.carType}, Style=${carInfo.wheels}.png`} alt="Wheel choice" className="h-14 w-auto mr-5" />
                             <p className="text-base flex flex-col justify-center">{carInfo.wheelsFull}</p>
                         </div>
-                        <p className="text-gray-300">0 €</p>
+                        <p className="text-gray-300">{carInfo.wheelsPrice} €</p>
                     </div>
                 </div>
                 <div className="flex flex-col gap-5">
@@ -107,12 +110,12 @@ const configurationView = () => {
                             <img src={`/Interior Color/Color=${carInfo.interior}.png`} alt="Interior choice" className="h-14 w-auto mr-5 rounded-full" />
                             <p className="text-base flex flex-col justify-center">{carInfo.interiorFull}</p>
                         </div>
-                        <p className="text-gray-300">0 €</p>
+                        <p className="text-gray-300">{carInfo.interiorPrice} €</p>
                     </div>
                 </div>
                 <div className="flex items-center justify-between">
                     <p className="text-lg font-semibold text-gray-200">TOTAL</p>
-                    <p className="text-2xl text-gray-100 font-semibold">120,000.12€</p> 
+                    <p className="text-2xl text-gray-100 font-semibold">{totalPrice.toFixed(2)} €</p> 
                 </div>
             </div>
         </div>      

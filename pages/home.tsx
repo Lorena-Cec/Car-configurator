@@ -19,6 +19,10 @@ interface SavedConfiguration {
   interiorFull: string;
   carType: string;
   timestamp: any;
+  price: number;
+  colorPrice: number;
+  wheelsPrice: number;
+  interiorPrice: number;
 }
 
 interface Car {
@@ -33,6 +37,10 @@ interface Car {
   defaultInterior: string;
   defaultInteriorFull: string;
   carType: string; 
+  price: number;
+  colorPrice: number;
+  wheelsPrice: number;
+  interiorPrice: number;
 }
 
 
@@ -85,6 +93,10 @@ const Home: React.FC = () => {
         defaultInterior: config.interior,
         defaultInteriorFull: config.interiorFull,
         carType: config.carType,
+        price: config.price,
+        colorPrice: config.colorPrice,
+        wheelsPrice: config.wheelsPrice,
+        interiorPrice: config.interiorPrice,
     };
   };
 

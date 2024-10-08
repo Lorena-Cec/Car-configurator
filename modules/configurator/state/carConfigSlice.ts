@@ -11,6 +11,10 @@ interface FinalConfig {
   interior: string;
   interiorFull: string;
   carType: string;
+  price: number;
+  colorPrice: number;
+  wheelsPrice: number;
+  interiorPrice: number;
 }
 
 interface CarConfigState {
@@ -24,6 +28,10 @@ interface CarConfigState {
   interior: string;
   interiorFull: string;
   carType: string;
+  price: number;
+  colorPrice: number;
+  wheelsPrice: number;
+  interiorPrice: number;
   finalConfig: FinalConfig;
 }
 
@@ -38,6 +46,10 @@ const initialState: CarConfigState = {
   interior: '',
   interiorFull: '',
   carType: '',
+  price: 0, 
+  colorPrice: 0, 
+  wheelsPrice: 0, 
+  interiorPrice: 0,
   finalConfig: {
     id: '',
     name: '',
@@ -49,6 +61,10 @@ const initialState: CarConfigState = {
     interior: '',
     interiorFull: '',
     carType: '',
+    price: 0, 
+    colorPrice: 0, 
+    wheelsPrice: 0, 
+    interiorPrice: 0,
   },
 };
 
@@ -69,6 +85,10 @@ const carConfigSlice = createSlice({
         interior: string;
         interiorFull: string;
         carType: string;
+        price: number;
+        colorPrice: number;
+        wheelsPrice: number;
+        interiorPrice: number;
       }>
     ) => {
       state.id = action.payload.id;
@@ -81,6 +101,10 @@ const carConfigSlice = createSlice({
       state.interior = action.payload.interior;
       state.interiorFull = action.payload.interiorFull;
       state.carType = action.payload.carType;
+      state.price = action.payload.price;
+      state.colorPrice = action.payload.colorPrice;
+      state.wheelsPrice = action.payload.wheelsPrice;
+      state.interiorPrice = action.payload.interiorPrice;
 
       state.finalConfig = {
         id: state.id,
@@ -93,6 +117,10 @@ const carConfigSlice = createSlice({
         interior: state.interior,
         interiorFull: state.interiorFull,
         carType: state.carType,
+        price: state.price,
+        colorPrice: state.colorPrice,
+        wheelsPrice: state.wheelsPrice,
+        interiorPrice: state.interiorPrice,
       };
     },
 
@@ -144,6 +172,28 @@ const carConfigSlice = createSlice({
       }
     },
 
+    setColorPrice: (state, action: PayloadAction<number>) => {
+      state.colorPrice = action.payload; 
+
+      if (state.finalConfig) {
+        state.finalConfig.colorPrice = action.payload;
+      }
+    },
+    setWheelsPrice: (state, action: PayloadAction<number>) => {
+      state.wheelsPrice = action.payload; 
+
+      if (state.finalConfig) {
+        state.finalConfig.wheelsPrice = action.payload;
+      }
+    },
+    setInteriorPrice: (state, action: PayloadAction<number>) => {
+      state.interiorPrice = action.payload; 
+
+      if (state.finalConfig) {
+        state.finalConfig.interiorPrice = action.payload;
+      }
+    },
+
     resetCarConfig: () => initialState,
   },
 });
@@ -156,6 +206,9 @@ export const {
   setWheelsFull,
   setInterior,
   setInteriorFull,
+  setColorPrice,
+  setWheelsPrice,
+  setInteriorPrice,
   resetCarConfig,
 } = carConfigSlice.actions;
 
