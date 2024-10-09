@@ -7,6 +7,8 @@ import { RootState } from '../store';
 import { getAuth } from "firebase/auth";
 import { doc, updateDoc, arrayUnion, collection, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../lib/firebaseConfig"; 
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 interface FinalConfig {
     id: string;
@@ -35,6 +37,7 @@ const SummaryPage = () => {
   );
 
   const totalPrice = price + colorPrice + wheelsPrice + interiorPrice;
+  const formattedTotalPrice = totalPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
 
 
   const handlePrevClick = () => {
@@ -68,7 +71,6 @@ const SummaryPage = () => {
           await setDoc(userDocRef, {
             savedConfigurations: []
           });
-          console.log("New user document created with an empty savedConfigurations array.");
         }
   
         const updatedUserDocSnapshot = await getDoc(userDocRef);
@@ -124,8 +126,23 @@ const SummaryPage = () => {
           savedConfigurations: existingConfigs,
         });
   
-        console.log("Configuration saved/updated successfully");
-        router.push("/home");
+        console.log('Configuration saved/updated successfully.');
+                    toast.success(
+                      <div className="flex gap-4 items-center">
+                        <strong className="text-xs font-bold p-3">SUCCESS</strong>
+                        <div className="text-xs">Configuration saved/updated successfully.</div>
+                      </div>,
+                       {
+                        closeButton: ({ closeToast }) => (
+                          <button className="custom-close-button" onClick={closeToast}>
+                            &#10006;
+                          </button>
+                        ),
+                      }
+                    );
+                    setTimeout(() => {
+                      router.push("/home");
+                    }, 1000);
       } catch (error) {
         console.error("Error saving configuration: ", error);
       }
@@ -192,7 +209,7 @@ const SummaryPage = () => {
                         <path d="M8 0C3.6 0 0 3.6 0 8C0 12.4 3.6 16 8 16C12.4 16 16 12.4 16 8C16 3.6 12.4 0 8 0ZM9 12H7V7H9V12ZM8 6C7.4 6 7 5.6 7 5C7 4.4 7.4 4 8 4C8.6 4 9 4.4 9 5C9 5.6 8.6 6 8 6Z" fill="currentColor"/>
                     </svg>
                 </div>
-                <p className="text-gray-100 text-2xl">{totalPrice.toFixed(2)} €</p>
+                <p className="text-gray-100 text-2xl">{formattedTotalPrice}</p>
             </div>
         </div>
         
@@ -243,7 +260,7 @@ const SummaryPage = () => {
                 </div>
                 <div className="flex items-center justify-between">
                     <p className="text-2xl font-bold text-gray-200">Total</p>
-                    <p className="text-2xl text-gray-100 font-semibold">{totalPrice.toFixed(2)} €</p> 
+                    <p className="text-2xl text-gray-100 font-semibold">{formattedTotalPrice}</p> 
                 </div>
             </div>
         </div>   
@@ -261,13 +278,14 @@ const SummaryPage = () => {
                         <path d="M8 0C3.6 0 0 3.6 0 8C0 12.4 3.6 16 8 16C12.4 16 16 12.4 16 8C16 3.6 12.4 0 8 0ZM9 12H7V7H9V12ZM8 6C7.4 6 7 5.6 7 5C7 4.4 7.4 4 8 4C8.6 4 9 4.4 9 5C9 5.6 8.6 6 8 6Z" fill="currentColor"/>
                     </svg>
                     </div>
-                    <p className="text-2xl">{totalPrice.toFixed(2)} €</p> 
+                    <p className="text-2xl">{formattedTotalPrice}</p> 
                 </div>
                 <p className="py-7 px-24 bg-blue-400 text-white font-bold cursor-pointer" onClick={() => handleSaveConfiguration(finalConfig)} >
                     Save your configuration
                 </p>
             </div>
         </div>
+        <ToastContainer position="top-center" className="whitespace-nowrap w-fit" autoClose={3000} hideProgressBar />
     </div>
   );
 };

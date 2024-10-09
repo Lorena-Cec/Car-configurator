@@ -29,10 +29,36 @@ const LoginForm = () => {
       if (rememberMe) {
         localStorage.setItem('rememberedEmail', email); 
       }
-      toast.success('Login successfull.');
-      router.push('/home');  
+      toast.success(
+        <div className="flex gap-4 items-center">
+          <strong className="text-xs font-bold p-3">SUCCESS</strong>
+          <div className="text-xs">Login successfull.</div>
+        </div>,
+         {
+          closeButton: ({ closeToast }) => (
+            <button className="custom-close-button" onClick={closeToast}>
+              &#10006;
+            </button>
+          ),
+        }
+      );
+      setTimeout(() => {
+        router.push("/home");
+      }, 1000);
     } catch (error) {
-      toast.error('Invalid email or password. Please try again.');
+      toast.error(
+        <div className="flex gap-4 items-center">
+          <strong className="text-xs font-bold p-3">ERROR</strong>
+          <div className="text-xs">Invalid email or password.</div>
+        </div>,
+         {
+          closeButton: ({ closeToast }) => (
+            <button className="custom-close-button" onClick={closeToast}>
+              &#10006;
+            </button>
+          ),
+        }
+      );
     }
   };
 
@@ -122,7 +148,7 @@ const LoginForm = () => {
             </button>
           </p>
         </form>
-        <ToastContainer autoClose={3000} hideProgressBar />
+        <ToastContainer position='top-center' className="whitespace-nowrap" autoClose={3000} hideProgressBar />
       </div>
     </div>
     </div>

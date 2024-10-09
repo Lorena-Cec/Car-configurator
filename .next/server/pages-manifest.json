@@ -2,10 +2,10 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
+  "/home": "pages/home.js",
   "/carselect": "pages/carselect.js",
   "/configurationView": "pages/configurationView.js",
-  "/configurationSummary": "pages/configurationSummary.js",
   "/configurationExterior": "pages/configurationExterior.js",
-  "/home": "pages/home.js",
-  "/configurationInterior": "pages/configurationInterior.js"
+  "/configurationInterior": "pages/configurationInterior.js",
+  "/configurationSummary": "pages/configurationSummary.js"
 }

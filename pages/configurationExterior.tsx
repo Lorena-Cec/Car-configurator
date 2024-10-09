@@ -15,8 +15,12 @@ const ConfigurationExterior = () => {
   const views = ["Front Left","Back Left","Side","Front","Back"];
   const [currentViewIndex, setCurrentViewIndex] = useState(0);
   const totalPrice = carInfo.price + carInfo.colorPrice + carInfo.wheelsPrice + carInfo.interiorPrice;
+  const formattedTotalPrice = totalPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
   const [totalPriceWheels, setTotalPriceWheels] = useState(carInfo.price + carInfo.colorPrice + carInfo.interiorPrice);
   const [totalPriceColor, setTotalPriceColor] = useState(carInfo.price + carInfo.wheelsPrice + carInfo.interiorPrice);
+  const formattedTotalPriceWheels = totalPriceWheels.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+  const formattedTotalPriceColor = totalPriceColor.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+
 
   const handlePrevClick = () => {
     setCurrentViewIndex((prevIndex) =>
@@ -208,7 +212,7 @@ const ConfigurationExterior = () => {
                       <path d="M8 0C3.6 0 0 3.6 0 8C0 12.4 3.6 16 8 16C12.4 16 16 12.4 16 8C16 3.6 12.4 0 8 0ZM9 12H7V7H9V12ZM8 6C7.4 6 7 5.6 7 5C7 4.4 7.4 4 8 4C8.6 4 9 4.4 9 5C9 5.6 8.6 6 8 6Z" fill="currentColor"/>
                     </svg>
                   </div>
-                  <p className="text-2xl">{totalPrice.toFixed(2)} €</p> 
+                  <p className="text-2xl">{formattedTotalPrice}</p> 
                 </div>
                 <Link href="/configurationInterior">
                   <div className="flex items-center justify-center gap-2 py-5 bg-blue-400">
@@ -267,7 +271,7 @@ const ConfigurationExterior = () => {
                           <path d="M8 0C3.6 0 0 3.6 0 8C0 12.4 3.6 16 8 16C12.4 16 16 12.4 16 8C16 3.6 12.4 0 8 0ZM9 12H7V7H9V12ZM8 6C7.4 6 7 5.6 7 5C7 4.4 7.4 4 8 4C8.6 4 9 4.4 9 5C9 5.6 8.6 6 8 6Z" fill="currentColor"/>
                         </svg>
                       </div>
-                      <p className="text-2xl">{totalPriceColor.toFixed(2)} €</p> 
+                      <p className="text-2xl">{formattedTotalPriceColor}</p> 
                     </div>
 
                     <div className="text-center py-5 bg-blue-400 cursor-pointer" onClick={handleColorDone}>
@@ -327,7 +331,7 @@ const ConfigurationExterior = () => {
                           <path d="M8 0C3.6 0 0 3.6 0 8C0 12.4 3.6 16 8 16C12.4 16 16 12.4 16 8C16 3.6 12.4 0 8 0ZM9 12H7V7H9V12ZM8 6C7.4 6 7 5.6 7 5C7 4.4 7.4 4 8 4C8.6 4 9 4.4 9 5C9 5.6 8.6 6 8 6Z" fill="currentColor"/>
                         </svg>
                       </div>
-                      <p className="text-2xl">{totalPriceWheels.toFixed(2)} €</p> 
+                      <p className="text-2xl">{formattedTotalPriceWheels}</p> 
                     </div>
 
                     <div className="text-center py-5 bg-blue-400 cursor-pointer" onClick={handleWheelsDone}>

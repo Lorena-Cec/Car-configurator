@@ -47,7 +47,7 @@ const NavBar = () => {
             <img src="/menu.png" alt="Menu" className="w-auto h-10"/>
         </button>
         {dropdownOpen && (
-            <div className="absolute right-0 bg-white shadow-lg z-10 dropdown">
+            <div className="absolute right-0 bg-white shadow-lg z-20 dropdown">
             <ul>
                 <li className="hover:bg-blue-400">
                 <Link href="/home" className="block whitespace-nowrap px-6 py-4 text-sm text-blue-300 hover:text-white">My Saved Configurations</Link>

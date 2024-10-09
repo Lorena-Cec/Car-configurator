@@ -13,7 +13,9 @@ const ConfigurationInterior = () => {
   const [currentViewIndex, setCurrentViewIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<"main" | "interior">("main");
   const totalPrice = carInfo.price + carInfo.colorPrice + carInfo.wheelsPrice + carInfo.interiorPrice;
+  const formattedTotalPrice = totalPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
   const [totalPriceInterior, setTotalPriceInterior] = useState(carInfo.price + carInfo.colorPrice + carInfo.wheelsPrice);
+  const formattedTotalPriceInterior = totalPriceInterior.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
 
   const carInteriorFull: { [key: string]: string[] } = {
     RS5: ["Black and grey", "Black and red", "Lunar Silver"],
@@ -149,7 +151,7 @@ const ConfigurationInterior = () => {
                       <path d="M8 0C3.6 0 0 3.6 0 8C0 12.4 3.6 16 8 16C12.4 16 16 12.4 16 8C16 3.6 12.4 0 8 0ZM9 12H7V7H9V12ZM8 6C7.4 6 7 5.6 7 5C7 4.4 7.4 4 8 4C8.6 4 9 4.4 9 5C9 5.6 8.6 6 8 6Z" fill="currentColor"/>
                     </svg>
                   </div>
-                  <p className="text-2xl">{totalPrice.toFixed(2)} €</p> 
+                  <p className="text-2xl">{formattedTotalPrice}</p> 
                 </div>
                 <Link href="/configurationSummary">
                   <div className="flex items-center justify-center gap-2 py-5 bg-blue-400">
@@ -206,7 +208,7 @@ const ConfigurationInterior = () => {
                           <path d="M8 0C3.6 0 0 3.6 0 8C0 12.4 3.6 16 8 16C12.4 16 16 12.4 16 8C16 3.6 12.4 0 8 0ZM9 12H7V7H9V12ZM8 6C7.4 6 7 5.6 7 5C7 4.4 7.4 4 8 4C8.6 4 9 4.4 9 5C9 5.6 8.6 6 8 6Z" fill="currentColor"/>
                         </svg>
                       </div>
-                      <p className="text-2xl">{totalPriceInterior.toFixed(2)} €</p> 
+                      <p className="text-2xl">{formattedTotalPriceInterior}</p> 
                     </div>
 
                     <div className="text-center py-5 bg-blue-400 cursor-pointer" onClick={handleDone}>

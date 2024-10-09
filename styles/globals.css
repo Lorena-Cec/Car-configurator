@@ -10,12 +10,6 @@
 body {
     @apply font-inter;
 }
-/*
-@font-face {
-    font-family: "OpticianSans";
-    src: url("/public/fonts/OpticianSans/Optiker-K.ttf") format("truetype");
-    font-weight: bold;
-   }   */
 
 @layer base {
     @font-face {
@@ -35,20 +29,41 @@ body {
 .Toastify__toast--error {
     border-radius: 10px;
     background: var(--error-red) !important;
-    width: 100%; 
-    max-width: 600px; 
+    width: fit-content; 
+    padding: 115px;
 }
 
+.Toastify__toast--error .Toastify__toast-icon svg {
+    fill: #2E2E38 !important;
+  }
+
+.Toastify__toast--success .Toastify__toast-icon svg {
+    fill: #2E2E38 !important;
+  }
+
 .Toastify__toast--success {
-    border-radius: 10px !important;
+    border-radius: 10px;
     background: var(--success-green) !important;
+    width: fit-content; 
+    padding: 115px;
 }
 
 .Toastify__toast-body {
-    color: #000;
+    color: #2E2E38;
     font-size: 16px;
     line-height: 20px;
     padding: 25px 20px 20px 20px;
     width: 100%;
     font-weight: 400;
 }
+
+.custom-close-button {
+    color: #2E2E38; 
+    width: 12px;
+    height: auto;
+    padding: 20px;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    cursor: pointer;
+  }

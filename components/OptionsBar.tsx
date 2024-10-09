@@ -5,6 +5,8 @@ import { auth, db } from '../lib/firebaseConfig';
 import { getAuth } from '@firebase/auth';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { setCarInfo } from 'modules/configurator/state/carConfigSlice';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Car {
     id: string;
@@ -62,10 +64,38 @@ const OptionsBar: React.FC<OptionsBarProps> = ({ configId, car }) => {
                         });
     
                         console.log('Configuration deleted successfully');
+                    toast.success(
+                      <div className="flex gap-4 items-center">
+                        <strong className="text-xs font-bold p-3">SUCCESS</strong>
+                        <div className="text-xs">Configuration deleted successfully.</div>
+                      </div>,
+                       {
+                        closeButton: ({ closeToast }) => (
+                          <button className="custom-close-button" onClick={closeToast}>
+                            &#10006;
+                          </button>
+                        ),
+                      }
+                    );
+                    setTimeout(() => {
                         router.reload(); 
-                    } else {
-                        console.log('No changes detected, configuration was not deleted.');
+                    }, 1000);
+                } else {
+                  console.log('Configuration cannot be deleted');
+                  toast.error(
+                    <div className="flex gap-4 items-center">
+                      <strong className="text-xs font-bold p-3">ERROR</strong>
+                      <div className="text-xs">Cannot delete default configuration.</div>
+                    </div>,
+                     {
+                      closeButton: ({ closeToast }) => (
+                        <button className="custom-close-button" onClick={closeToast}>
+                          &#10006;
+                        </button>
+                      ),
                     }
+                  );
+                }
                 } else {
                     console.error('User document does not exist');
                 }
@@ -142,7 +172,7 @@ const OptionsBar: React.FC<OptionsBarProps> = ({ configId, car }) => {
                     </ul>
                 </div>
             )}
-
+        <ToastContainer position="top-center" className="whitespace-nowrap w-fit" autoClose={3000} hideProgressBar />
     </div>
   );
 };
