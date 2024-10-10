@@ -100,10 +100,10 @@ const Home: React.FC = () => {
     <div className="flex flex-col h-screen">
       <NavBar />
       <main className="flex flex-col items-center flex-1 bg-gray-600">
-        <div className="flex justify-between items-center w-full px-36 py-20">
-          <h1 className="text-2xl">View Saved Configurations</h1>
+        <div className="flex justify-between items-center w-full lg:px-36 lg:py-20 px-6 py-6">
+          <h1 className="md:text-2xl text-lg">View Saved Configurations</h1>
           <Link href="/carselect">
-            <button className="bg-blue-400 text-white px-5 py-3 text-sm font-bold font-inter hover:bg-blue-600">
+            <button className="bg-blue-400 text-white sm:px-5 sm:py-3 p-2 text-sm font-bold font-inter hover:bg-blue-600">
               Configure a car
             </button>
           </Link>
@@ -112,20 +112,20 @@ const Home: React.FC = () => {
         {loading ? (
           <p>Loading configurations...</p>
         ) : savedConfigurations.length > 0 ? (
-          <div className="flex flex-col justify-between gap-7 px-36 w-full mb-10">
+          <div className="flex flex-col justify-between gap-7 lg:px-36 w-full mb-10">
             {savedConfigurations.map((config, index) => (
-              <div key={index} className="relative flex items-center bg-white ">
+              <div key={index} className="relative flex flex-col lg:flex-row items-center bg-white mx-10">
                 <div className="flex-none">
                   <img
                     src={`/${config.carName}/View=Side, Color=${config.color}, Wheel Style=${config.wheels}.png`} 
                     alt={config.carName}
-                    className="object-cover w-105 py-5"
+                    className="sm:object-cover w-105 py-5"
                   />
                 </div>
-                <div className='flex items-center'>
-                  <div className="w-px h-29 bg-gray-300 mx-14"></div>
+                <div className='flex flex-col lg:flex-row items-center text-center'>
+                  <div className="lg:w-px lg:h-29 w-64 h-px bg-gray-300 lg:mx-5 xl:mx-14 mb-3"></div>
 
-                  <div className="flex-1">
+                  <div className="flex-1 sm:items-start">
                     <p className="text-labels-small text-gray-300">{config.carYear}</p>
                     <p className="text-4xl font-bold text-blue-400 font-optician">{config.carName}</p>
                     <p className="text-labels-small mt-2 text-gray-200 uppercase">{config.colorFull}</p>

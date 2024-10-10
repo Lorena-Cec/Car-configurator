@@ -72,7 +72,7 @@ const OptionsBar: React.FC<OptionsBarProps> = ({ configId, car }) => {
         </svg>
 
             {dropdownOpen && (
-                <div className="absolute right-5 bottom-6 bg-white shadow-md z-10 dropdown">
+                <div className="absolute right-5 top-9 bg-white shadow-md z-10 dropdown">
                     <ul>
                         <li className="hover:bg-blue-400">
                             <p className="block whitespace-nowrap px-6 py-4 text-sm text-blue-300 hover:text-white cursor-pointer" onClick={handleCarSelect}>Edit Configuration</p>
