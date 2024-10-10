@@ -4,5 +4,5 @@
   "/_error": "pages/_error.js",
   "/home": "pages/home.js",
   "/login": "pages/login.js",
-  "/carselect": "pages/carselect.js"
+  "/register": "pages/register.js"
 }

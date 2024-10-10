@@ -151,9 +151,9 @@ const Home: React.FC = () => {
             <img
               src="/AudiRS6.png"
               alt="No configurations"
-              className="w-auto h-52 object-cover"
+              className="w-auto sm:h-52 h-40 object-cover"
             />
-            <p className="mt-6 px-24 w-8/12 text-xl font-normal text-gray-300 text-center ">
+            <p className="mt-6 sm:px-24 px-5 w-8/12 sm:text-xl text-lg font-normal text-gray-300 text-center ">
               You haven't configured any cars yet. You may choose to{' '}
               <Link href="/carselect" className="text-blue-400 font-bold">
                 configure some now
