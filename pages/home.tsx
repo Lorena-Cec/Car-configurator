@@ -6,6 +6,7 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '../lib/firebaseConfig'; 
 import OptionsBar from 'components/OptionsBar';
 import { config } from 'next/dist/build/templates/pages';
+import { Car } from 'modules/configurator';
 
 interface SavedConfiguration {
   id: string;
@@ -24,25 +25,6 @@ interface SavedConfiguration {
   wheelsPrice: number;
   interiorPrice: number;
 }
-
-interface Car {
-  id: string;
-  name: string;
-  year: number;
-  image: string;
-  defaultColor: string;   
-  defaultColorFull: string;  
-  defaultWheels: string;   
-  defaultWheelsFull: string;   
-  defaultInterior: string;
-  defaultInteriorFull: string;
-  carType: string; 
-  price: number;
-  colorPrice: number;
-  wheelsPrice: number;
-  interiorPrice: number;
-}
-
 
 const Home: React.FC = () => {
   const [savedConfigurations, setSavedConfigurations] = useState<SavedConfiguration[]>([]);

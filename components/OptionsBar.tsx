@@ -7,25 +7,8 @@ import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { setCarInfo } from 'modules/configurator/state/carConfigSlice';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-interface Car {
-    id: string;
-    name: string;
-    year: number;
-    image: string;
-    defaultColor: string;   
-    defaultColorFull: string;  
-    defaultWheels: string;   
-    defaultWheelsFull: string;   
-    defaultInterior: string;
-    defaultInteriorFull: string;
-    carType: string; 
-    price: number;
-    colorPrice: number;
-    wheelsPrice: number;
-    interiorPrice: number;
-  }
-
+import { Car } from 'modules/configurator';
+import useHandleDelete from 'modules/configurator/hooks/useHandleDelete';
 
   interface OptionsBarProps {
     configId: string;
@@ -36,77 +19,11 @@ const OptionsBar: React.FC<OptionsBarProps> = ({ configId, car }) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const router = useRouter();
     const dispatch = useDispatch();
+    const { handleDelete } = useHandleDelete(configId);
 
     const toggleDropdown = () => {
         setDropdownOpen((prev) => !prev);
     };
-
-    const handleDelete = async () => {
-        const auth = getAuth();
-        const user = auth.currentUser;
-    
-        console.log("Current user:", user); 
-    
-        if (user) {
-            try {
-                const userDocRef = doc(db, 'users', user.uid);
-                
-                const userDoc = await getDoc(userDocRef);
-                if (userDoc.exists()) {
-                    const userData = userDoc.data();
-    
-                    const savedConfigurations = userData.savedConfigurations || [];
-                    const updatedConfigurations = savedConfigurations.filter((config: any) => String(config.id) !== String(configId));
-                    
-                    if (updatedConfigurations.length !== savedConfigurations.length) {
-                        await updateDoc(userDocRef, {
-                            savedConfigurations: updatedConfigurations
-                        });
-    
-                        console.log('Configuration deleted successfully');
-                    toast.success(
-                      <div className="flex gap-4 items-center">
-                        <strong className="text-xs font-bold p-3">SUCCESS</strong>
-                        <div className="text-xs">Configuration deleted successfully.</div>
-                      </div>,
-                       {
-                        closeButton: ({ closeToast }) => (
-                          <button className="custom-close-button" onClick={closeToast}>
-                            &#10006;
-                          </button>
-                        ),
-                      }
-                    );
-                    setTimeout(() => {
-                        router.reload(); 
-                    }, 1000);
-                } else {
-                  console.log('Configuration cannot be deleted');
-                  toast.error(
-                    <div className="flex gap-4 items-center">
-                      <strong className="text-xs font-bold p-3">ERROR</strong>
-                      <div className="text-xs">Cannot delete default configuration.</div>
-                    </div>,
-                     {
-                      closeButton: ({ closeToast }) => (
-                        <button className="custom-close-button" onClick={closeToast}>
-                          &#10006;
-                        </button>
-                      ),
-                    }
-                  );
-                }
-                } else {
-                    console.error('User document does not exist');
-                }
-            } catch (error) {
-                console.error('Error deleting configuration: ');
-            }
-        } else {
-            console.error('No user is logged in');
-        }
-    };
-    
     
 
     const handleCarSelect = () => {
