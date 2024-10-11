@@ -37,6 +37,11 @@ module.exports = {
         'red-error': '#D2341E',
         
       },
+      screens: {
+        'tablet': '640px',
+        'laptop': '1024px',
+        'desktop': '1280px',
+      },
       fontSize: {
         'labels-small': ['11px', {
           lineHeight: '16px',

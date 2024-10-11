@@ -1,8 +1,13 @@
 {
   "/_app": "pages/_app.js",
-  "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
-  "/home": "pages/home.js",
+  "/_document": "pages/_document.js",
+  "/register": "pages/register.js",
+  "/carselect": "pages/carselect.js",
   "/login": "pages/login.js",
-  "/register": "pages/register.js"
+  "/configurationSummary": "pages/configurationSummary.js",
+  "/home": "pages/home.js",
+  "/configurationView": "pages/configurationView.js",
+  "/configurationExterior": "pages/configurationExterior.js",
+  "/configurationInterior": "pages/configurationInterior.js"
 }

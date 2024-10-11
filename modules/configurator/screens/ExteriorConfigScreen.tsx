@@ -8,9 +8,9 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setWheels, setColor, setColorFull, setWheelsFull, setColorPrice, setWheelsPrice } from "modules/configurator/state/carConfigSlice";
 import { carColorsPrice, carWheelsPrice, carWheelsOptions, carWheelsName, carColorsFull, carColorsShort } from "modules/configurator";
-import StepNavigation from "../components/stepNavigation";
-import CarViews from "../components/carViews";
-import SelectionModal from "../components/selectionModal";
+import StepNavigation from "../components/StepNavigation";
+import CarViews from "../components/CarViews";
+import SelectionModal from "../components/SelectionModal";
 
 const ConfigurationExterior = () => {
   const dispatch = useDispatch();
@@ -107,8 +107,8 @@ const ConfigurationExterior = () => {
   return (
     <div className="max-h-screen bg-gray-600 flex flex-col">
       <NavBar />
-      <div className="flex justify-between items-center py-6 px-10 bg-white border-b-2 border-gray-500 z-0 relative">
-        <div className="flex items-center gap-3">
+      <div className="flex flex-col sm:flex-row justify-between items-center sm:gap-0 gap-5 py-6 px-10 bg-white border-b-2 border-gray-500 z-0 relative">
+        <div className="flex items-center gap-3 border-b-2 sm:border-none">
           <Link href="/configurationView">
             <img src="/arrowleft.png" alt="Arrow Left" className="h-4  w-auto" />
           </Link>
@@ -120,11 +120,15 @@ const ConfigurationExterior = () => {
         )}
       </div>
 
-      <div className="flex h-svh">
-        {/* lijevi dio */}
-        <div className="flex flex-col flex-1 justify-center items-center bg-gray-600 align-middle gap-10">
+      <div className="flex sm:flex-row flex-col h-svh">
+        {/* lijevi dio / mobilno gornji dio */}
+        <div className="flex flex-col flex-1 justify-center items-center bg-gray-600 align-middle gap-10 pb-5">
           <div className="overflow-hidden">
-          <img src={`/${carInfo.name}/View=${views[currentViewIndex]}, Color=${shortColorOptions[displayedColorIndex]}, Wheel Style=${wheelsOptions[displayedWheelsIndex]}.png`} alt="Car Configuration" className="h-96 w-auto object-contain"/>          </div>
+            <img src={`/${carInfo.name}/View=${views[currentViewIndex]}, Color=${shortColorOptions[displayedColorIndex]}, Wheel Style=${wheelsOptions[displayedWheelsIndex]}.png`} 
+              alt="Car Configuration" 
+              className="sm:h-96 sm:w-auto sm:object-contain"
+              />          
+          </div>
           <div className="flex items-center gap-4">
             <img src="/arrowleft.png" alt="Arrow Left" className="h-4 w-auto cursor-pointer" onClick={handlePrevClick} />
             <div className="flex items-center gap-1">
@@ -136,12 +140,12 @@ const ConfigurationExterior = () => {
           </div>
         </div>
 
-        {/* desni dio */}
+        {/* desni dio / mobilno desni dio */}
 
-        <div className="bg-white border-l-2 border-gray-500 w-80">
-          <div className="flex flex-col p-10 gap-10">
+        <div className="bg-white sm:border-l-2 sm:border-t-0 border-t-2 border-gray-500 w-full sm:w-80">
+          <div className="flex flex-col sm:p-10 gap-10">
             {selectedOption === "main" && (
-              <div className="flex items-center cursor-pointer" onClick={function(event){ setSelectedOption("colors"); setTempColorIndex(displayedColorIndex); handleColorSelect(displayedColorIndex);}}>
+              <div className="flex items-center cursor-pointer ml-10 pt-10 sm:ml-0 sm:pt-0" onClick={function(event){ setSelectedOption("colors"); setTempColorIndex(displayedColorIndex); handleColorSelect(displayedColorIndex);}}>
                 <img src={`/Color/Color=${finalConfig.colorFull}.png`} alt="Color choice" className="h-14 w-auto rounded-full mr-5" />
                 <div>
                   <p className="text-base">{finalConfig.colorFull}</p>
@@ -151,7 +155,7 @@ const ConfigurationExterior = () => {
             )}
 
             {selectedOption === "main" && (
-              <div className="flex items-center cursor-pointer" onClick={function(event){ setSelectedOption("wheels"); setTempWheelsIndex(displayedWheelsIndex); handleWheelsSelect(displayedWheelsIndex);}}>
+              <div className="flex items-center cursor-pointer ml-10 sm:ml-0 " onClick={function(event){ setSelectedOption("wheels"); setTempWheelsIndex(displayedWheelsIndex); handleWheelsSelect(displayedWheelsIndex);}}>
                 <img src={`/Wheels/Car=${carInfo.carType}, Style=${finalConfig.wheels}.png`} alt="Wheel choice" className="h-14 w-auto mr-5" />
                 <div>
                   <p className="text-base">{finalConfig.wheelsFull}</p>
@@ -160,7 +164,7 @@ const ConfigurationExterior = () => {
               </div>
             )}
             {selectedOption === "main" && (
-              <div className="absolute  bottom-0 right-0 w-80">
+              <div className="sm:absolute items-center sm:bottom-0 sm:right-0 w-full sm:w-80">
                 <div className="flex items-center justify-between gap-10 px-6 pb-6">
                   <div className="flex items-center">
                     <p className="text-sm tracking-widest text-gray-300">TOTAL</p>
@@ -183,7 +187,7 @@ const ConfigurationExterior = () => {
               </div> 
             )}
 
-            {selectedOption === "colors" && (
+            {selectedOption === "colors" && ( //context api
                 <SelectionModal
                     title="Paint Color"
                     options={fullColorOptions}

@@ -6,8 +6,8 @@ import { useSelector } from "react-redux";
 import { RootState } from '../../../store'; 
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import CarViews from "../components/carViews";
-import StepNavigation from "../components/stepNavigation";
+import CarViews from "../components/CarViews";
+import StepNavigation from "../components/StepNavigation";
 import useSaveConfiguration from "modules/configurator/hooks/useSaveConfiguration";
 
 const SummaryPage = () => {
@@ -33,8 +33,8 @@ const SummaryPage = () => {
   return (
     <div className="min-h-screen bg-gray-600 flex flex-col">
       <NavBar />
-      <div className="flex justify-between items-center py-6 px-10 bg-white border-b-2 border-gray-500 z-0">
-        <div className="flex items-center gap-3">
+      <div className="flex flex-col sm:flex-row justify-between items-center sm:gap-0 gap-5 sm:py-6 sm:px-10 px-5 py-5 bg-white border-b-2 border-gray-500 z-0">
+        <div className="flex items-center sm:gap-3 gap-2 border-b-2 sm:border-none">
           <img src="/arrowleft.png" alt="Arrow Left" className="h-4  w-auto" onClick={previousPage}/>
           <p className="text-gray-300 text-2xl font-optician">{finalConfig.year}</p>
           <p className=" text-gray-100 text-2xl font-semibold font-optician">{finalConfig.name}</p>
@@ -43,19 +43,19 @@ const SummaryPage = () => {
       </div>
       <div className="flex flex-col items-center justify-between gap-4 py-10">
         <p className="text-3.5xl text-gray-100 font-bold">Almost Done!</p>
-        <p className="text-xl text-gray-100">Review your configuration and save your car.</p>
+        <p className="text-xl text-gray-100 sm:p-0 p-5">Review your configuration and save your car.</p>
       </div>
       
       
       <CarViews carInfo={finalConfig} />
-        <div className="flex justify-between items-center mx-40 pb-9 border-b-2 border-gray-500">
+        <div className="flex justify-between items-center mx-5 lg:mx-40 sm:mx-20 pb-9 border-b-2 border-gray-500">
             <div>
-                <p className=" text-gray-100 text-5xl font-semibold font-optician">{finalConfig.name}</p>
-                <p className="text-gray-300 text-3xl font-optician">{finalConfig.year}</p>
+                <p className=" text-gray-100 md:text-5xl text-3xl font-semibold font-optician">{finalConfig.name}</p>
+                <p className="text-gray-300 md:text-3xl text-2xl font-optician">{finalConfig.year}</p>
             </div>
             <div className="flex flex-col items-end">
                 <div className="flex items-center justify-center">
-                    <p className="text-gray-300 text-base font-semibold">TOTAL</p>
+                    <p className="text-gray-300 md:text-base text-sm font-semibold">TOTAL</p>
                     <svg width="16" fill="none" className="h-4 w-auto ml-2 text-gray-300"  height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
                         <path d="M8 0C3.6 0 0 3.6 0 8C0 12.4 3.6 16 8 16C12.4 16 16 12.4 16 8C16 3.6 12.4 0 8 0ZM9 12H7V7H9V12ZM8 6C7.4 6 7 5.6 7 5C7 4.4 7.4 4 8 4C8.6 4 9 4.4 9 5C9 5.6 8.6 6 8 6Z" fill="currentColor"/>
                     </svg>
@@ -65,7 +65,7 @@ const SummaryPage = () => {
         </div>
         
 
-        <div className="flex flex-row mx-40 mb-20 pt-14 gap-40">
+        <div className="flex lg:flex-row flex-col justify-between mx-8 lg:mx-40 sm:mx-20 lg:mb-20 mb-5 lg:pt-14 pt-10 xl:gap-40 lg:gap-20 gap-10">
             <div>
                 <p className="text-gray-100 whitespace-nowrap text-2xl">Your configuration details</p>
             </div>
@@ -116,22 +116,22 @@ const SummaryPage = () => {
             </div>
         </div>   
 
-        <div className="flex w-full h-20 justify-between items-center py-6 bg-white border-t-2 border-gray-500">
-            <div className="flex items-center gap-3 pl-10">
+        <div className="flex flex-col md:flex-row sm:w-full md:h-20 md:gap-0 gap-5 justify-between items-center md:py-6 bg-white border-t-2 border-gray-500">
+            <div className="flex items-center gap-3 sm:pl-10 md:pt-0 pt-10">
                 <p className="text-gray-300 text-2xl font-optician">{finalConfig.year}</p>
                 <p className=" text-gray-100 text-2xl font-semibold font-optician">{finalConfig.name}</p>
             </div>
-            <div className="flex items-center">
-                <div className="flex items-center justify-between px-7 gap-14">
+            <div className="flex w-full md:w-auto flex-col md:flex-row items-center md:gap-0 gap-5">
+                <div className="flex items-center justify-between sm:px-7 md:gap-14 gap-10">
                     <div className="flex items-center">
                     <p className="text-sm tracking-widest text-gray-300">TOTAL</p>
                     <svg width="16" fill="none" className="h-4 w-auto ml-2 text-gray-300"  height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
                         <path d="M8 0C3.6 0 0 3.6 0 8C0 12.4 3.6 16 8 16C12.4 16 16 12.4 16 8C16 3.6 12.4 0 8 0ZM9 12H7V7H9V12ZM8 6C7.4 6 7 5.6 7 5C7 4.4 7.4 4 8 4C8.6 4 9 4.4 9 5C9 5.6 8.6 6 8 6Z" fill="currentColor"/>
                     </svg>
                     </div>
-                    <p className="text-2xl">{formattedTotalPrice}</p> 
+                    <p className="lg:text-2xl text-lg ">{formattedTotalPrice}</p> 
                 </div>
-                <p className="py-7 px-24 bg-blue-400 text-white font-bold cursor-pointer" onClick={() => saveConfiguration()} >
+                <p className="sm:py-7 w-full md:w-auto xl:px-24 lg:px-10 px-8 py-6 bg-blue-400 text-white text-center font-bold cursor-pointer" onClick={() => saveConfiguration()} >
                     Save your configuration
                 </p>
             </div>

@@ -33,13 +33,14 @@ const CarSelect = () => {
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
-      if (width < 500) {
+      if(width>=770){
+        setSlidesPerView(2.3);
+      }
+      else if (width < 500) {
         setSlidesPerView(1.4); 
       } else if (width < 770) {
         setSlidesPerView(1.8); 
-      } else if (width < 1024) {
-        setSlidesPerView(2.3); 
-      } 
+      }
     };
 
     window.addEventListener("resize", handleResize);

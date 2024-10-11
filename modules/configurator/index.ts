@@ -5,8 +5,8 @@ export * from './state/carConfigSlice';
 export * from './models/CarModel';
 
 // components
-export * from "./components/stepNavigation";
-export * from './components/carViews';
+export * from "./components/StepNavigation";
+export * from './components/CarViews';
 
 // const
 export * from './const/carColors';

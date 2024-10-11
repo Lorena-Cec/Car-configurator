@@ -9,7 +9,7 @@ import { db } from "lib/firebaseConfig";
 import { getAuth } from "@firebase/auth";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import CarViews from "../components/carViews";
+import CarViews from "../components/CarViews";
 import useHandleDelete from "../hooks/useHandleDelete";
 
 
@@ -93,7 +93,7 @@ const configurationView = () => {
 
         <div className="flex lg:flex-row flex-col justify-between mx-8 lg:mx-40 sm:mx-20 lg:mb-20 mb-5 lg:pt-14 pt-10 xl:gap-40 lg:gap-20 gap-10">
             <div>
-                <p className="text-gray-100 whitespace-nowrap text-2xl">Your configuration details</p>
+                <p className="text-gray-100 whitespace-nowrap sm:text-2xl text-xl">Your configuration details</p>
             </div>
             <div className="flex flex-col gap-10 w-full">
                 <div className="flex flex-col gap-5">

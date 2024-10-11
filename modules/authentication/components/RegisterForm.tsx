@@ -34,7 +34,7 @@ const RegisterForm = () => {
         email,
       });
 
-      dispatch(setUser(userData)); 
+      dispatch(setUser(userData)); //firebase persistence auth
       if (rememberMe) {
         localStorage.setItem('rememberedEmail', email); 
       }

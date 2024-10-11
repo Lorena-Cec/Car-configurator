@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
 import { setInterior, setInteriorFull, setInteriorPrice } from "modules/configurator/state/carConfigSlice";
 import { carInteriorFull, carInteriorShort, carInteriorPrice } from "../const/carInterior";
-import StepNavigation from "../components/stepNavigation";
-import CarViews from "../components/carViews";
-import SelectionModal from "../components/selectionModal";
+import StepNavigation from "../components/StepNavigation";
+import CarViews from "../components/CarViews";
+import SelectionModal from "../components/SelectionModal";
 
 const ConfigurationInterior = () => {
   const carInfo = useSelector((state: RootState) => state.carConfig)
@@ -72,8 +72,8 @@ const ConfigurationInterior = () => {
   return (
     <div className="max-h-screen bg-gray-600 flex flex-col">
       <NavBar />
-      <div className="flex justify-between items-center py-6 px-10 bg-white border-b-2 border-gray-500 z-0">
-        <div className="flex items-center gap-3">
+      <div className="flex flex-col sm:flex-row justify-between items-center sm:gap-0 gap-5 py-6 px-10 bg-white border-b-2 border-gray-500 z-0">
+        <div className="flex items-center gap-3 border-b-2 sm:border-none">
           <img src="/arrowleft.png" alt="Arrow Left" className="h-4 w-auto cursor-pointer" onClick={previousPage}/>
           <p className="text-gray-300 text-2xl font-optician">{carInfo.year}</p>
           <p className=" text-gray-100 text-2xl font-semibold font-optician">{carInfo.name}</p>
@@ -83,12 +83,12 @@ const ConfigurationInterior = () => {
         )}
       </div>
 
-      <div className="flex h-svh">
+      <div className="flex flex-col sm:flex-row gap-10 sm:gap-0 h-svh">
         {/* lijevi dio */}
         <div className="flex flex-col flex-1 justify-center items-center bg-gray-600 align-middle gap-10">
           <img src={`/Interior/Car=${carInfo.carType}, Color=${shortInteriorOptions[displayedInteriorIndex]}, View=${views[currentViewIndex]}.png`} 
           alt="Car Configuration" 
-          className="h-110 w-250 relative object-cover"
+          className="sm:h-110 sm:w-250 w-96 h-56 relative object-cover"
           />
           <div className="flex items-center gap-4">
             <img src="/arrowleft.png" alt="Arrow Left" className="h-4 w-auto cursor-pointer" onClick={handlePrevClick}/>
@@ -103,10 +103,10 @@ const ConfigurationInterior = () => {
 
         {/* desni dio */}
 
-        <div className="bg-white border-l-2 border-gray-500 w-80">
-          <div className="flex flex-col p-10 gap-10">
+        <div className="bg-white sm:border-l-2 sm:border-t-0 border-t-2 border-gray-500 w-full sm:w-80">
+          <div className="flex flex-col sm:p-10 gap-10">
             {selectedOption === "main" && (
-              <div className="flex items-center cursor-pointer" onClick={function(event){ setSelectedOption("interior"); setTempInteriorIndex(displayedInteriorIndex); handleInteriorSelect(displayedInteriorIndex);}}>
+              <div className="flex items-center cursor-pointer ml-10 pt-10 sm:ml-0 sm:pt-0" onClick={function(event){ setSelectedOption("interior"); setTempInteriorIndex(displayedInteriorIndex); handleInteriorSelect(displayedInteriorIndex);}}>
                 <img src={`/Interior Color/Color=${shortInteriorOptions[displayedInteriorIndex]}.png`} alt="Color choice" className="h-14 w-auto rounded-full mr-5" />
                 <div>
                   <p className="text-base">{fullInteriorOptions[displayedInteriorIndex]}</p>
@@ -116,7 +116,7 @@ const ConfigurationInterior = () => {
             )}
 
             {selectedOption === "main" && (
-              <div className="absolute bottom-0 right-0 w-80">
+              <div className="sm:absolute items-center sm:bottom-0 sm:right-0 w-full sm:w-80">
                 <div className="flex items-center justify-between px-6 mb-6 gap-10">
                   <div className="flex items-center">
                     <p className="text-sm tracking-widest text-gray-300">TOTAL</p>

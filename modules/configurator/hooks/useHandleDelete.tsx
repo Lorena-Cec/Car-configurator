@@ -12,7 +12,7 @@ const useHandleDelete = (configId: string) => {
         const auth = getAuth();
         const user = auth.currentUser;
 
-        if (user) {
+        if (user) { //if(!user) return;
             try {
                 const userDocRef = doc(db, 'users', user.uid);
                 
